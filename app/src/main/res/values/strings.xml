@@ -1,3 +1,21 @@
 <resources>
-    <string name="app_name">DungeonExplorer</string>
+    <string name="app_name">Neutrophil</string>
+    <string name="textTitle">Neutrophil\'s Patrol</string>
+    <string name="StartButton">Start</string>
+    <string name="PauseTittle">Pause</string>
+    <string name="SettingsTittle">Settings</string>
+    <string name="LoadTittle">Load Game</string>
+    <string name="InventoryTittle">Inventory</string>
+    <string name="SaveTittle">Save Game</string>
+    <string name="Close">Close</string>
+<!--    <string name="">Pause</string>-->
+<!--    <string name="">Pause</string>-->
+<!--    <string name="">Pause</string>-->
+<!--    <string name="">Pause</string>-->
+<!--    <string name="">Pause</string>-->
+<!--    <string name="PauseTittle">Pause</string>-->
+<!--    <string name="PauseTittle">Pause</string>-->
+<!--    <string name="PauseTittle">Pause</string>-->
+<!--    <string name="PauseTittle">Pause</string>-->
+<!--    <string name="PauseTittle">Pause</string>-->
 </resources>
