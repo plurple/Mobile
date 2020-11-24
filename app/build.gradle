@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.example.dungeonexplorer"
+        applicationId "com.example.neutrophil"
         minSdkVersion 19
         targetSdkVersion 30
         versionCode 1

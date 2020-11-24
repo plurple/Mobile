@@ -2,56 +2,43 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/PauseMenu"
+    android:id="@+id/Credits"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#504C4C"
+    android:background="#4D19A3"
     android:orientation="horizontal"
-    tools:context="com.example.neutrophil.menus.Pause">
+    tools:context="com.example.neutrophil.menus.Credits">
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/CreditsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/PauseTittle"
+        android:text="@string/creditsTittle"
         android:textSize="44sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/Resume"
+    <TextView
+        android:id="@+id/MadeBy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="285dp"
-        android:layout_marginTop="320dp"
-        android:background="#D809E6"
-        android:text="@string/resume"
+        android:layout_marginTop="50dp"
+        android:text="@string/MadeBy"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/CreditsTitle" />
 
     <Button
-        android:id="@+id/SaveGame"
+        android:id="@+id/close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="320dp"
-        android:layout_marginEnd="180dp"
-        android:background="#00EF0A"
-        android:text="@string/SaveTittle"
-        app:layout_constraintEnd_toStartOf="@+id/Settings"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/Settings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="320dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
-        android:background="#8BC34A"
-        android:text="@string/SettingsTittle"
+        android:background="#FF9800"
+        android:text="@string/Close"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
