@@ -1,21 +1,16 @@
 <resources>
     <string name="app_name">Neutrophil</string>
-    <string name="textTitle">Neutrophil\'s Patrol</string>
-    <string name="StartButton">Start</string>
+    <string name="textTitle">A Neutrophil\'s Journey</string>
     <string name="PauseTittle">Pause</string>
     <string name="SettingsTittle">Settings</string>
     <string name="LoadTittle">Load Game</string>
     <string name="InventoryTittle">Inventory</string>
     <string name="SaveTittle">Save Game</string>
     <string name="Close">Close</string>
-<!--    <string name="">Pause</string>-->
-<!--    <string name="">Pause</string>-->
-<!--    <string name="">Pause</string>-->
-<!--    <string name="">Pause</string>-->
-<!--    <string name="">Pause</string>-->
-<!--    <string name="PauseTittle">Pause</string>-->
-<!--    <string name="PauseTittle">Pause</string>-->
-<!--    <string name="PauseTittle">Pause</string>-->
-<!--    <string name="PauseTittle">Pause</string>-->
-<!--    <string name="PauseTittle">Pause</string>-->
+    <string name="creditsTittle">Credits</string>
+    <string name="NewTittle">New Game</string>
+    <string name="resume">Resume</string>
+    <string name="backgroundSound">Background Sound</string>
+    <string name="sounds">Sounds</string>
+
 </resources>
