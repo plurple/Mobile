@@ -1,4 +1,4 @@
 package com.example.neutrophil.game
 
-class Spells {
+class Abilities {
 }

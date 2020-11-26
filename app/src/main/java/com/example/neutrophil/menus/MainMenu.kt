@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.neutrophil.R
+import com.example.neutrophil.game.OverWorld
 import kotlinx.android.synthetic.main.fragment_main_menu.*
 import kotlin.system.exitProcess
 
@@ -23,38 +24,59 @@ class MainMenu : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        NewGame.setOnClickListener{ openNewGame() }
-        LoadGame.setOnClickListener{ openLoadGame() }
-        Settings.setOnClickListener{ openSettings() }
-        Credits.setOnClickListener{ openCredits() }
-        Close.setOnClickListener{ closeGame() }
+        newGame.setOnClickListener{ openNewGame() }
+        loadGame.setOnClickListener{ openLoadGame() }
+        settings.setOnClickListener{ openSettings() }
+        credits.setOnClickListener{ openCredits() }
+        close.setOnClickListener{ closeGame() }
+        OkButton.setOnClickListener { startNewGame() }
+        cancelButton.setOnClickListener { closePopup() }
     }
 
     private fun openNewGame() {
-        val transaction = fragmentManager!!.beginTransaction()
-        transaction.replace(R.id.fragmentContainer, NewGame())
-        transaction.commit()
+        popup.visibility = View.VISIBLE
     }
 
     private fun openLoadGame() {
-        val transaction = fragmentManager!!.beginTransaction()
-        transaction.replace(R.id.fragmentContainer, SaveLoad())
-        transaction.commit()
+        if(popup.visibility == View.INVISIBLE) {
+            val transaction = fragmentManager!!.beginTransaction()
+            transaction.replace(R.id.fragmentContainer, SaveLoad())
+            transaction.addToBackStack("openLoadGame")
+            transaction.commit()
+        }
     }
 
     private fun openSettings() {
-        val transaction = fragmentManager!!.beginTransaction()
-        transaction.replace(R.id.fragmentContainer, Settings())
-        transaction.commit()
+        if(popup.visibility == View.INVISIBLE) {
+            val transaction = fragmentManager!!.beginTransaction()
+            transaction.replace(R.id.fragmentContainer, Settings())
+            transaction.addToBackStack("OpenSettings")
+            transaction.commit()
+        }
     }
 
     private fun openCredits() {
-        val transaction = fragmentManager!!.beginTransaction()
-        transaction.replace(R.id.fragmentContainer, Credits())
-        transaction.commit()
+        if(popup.visibility == View.INVISIBLE) {
+            val transaction = fragmentManager!!.beginTransaction()
+            transaction.replace(R.id.fragmentContainer, Credits())
+            transaction.addToBackStack("OpenCredits")
+            transaction.commit()
+        }
     }
 
     private fun closeGame() {
-        exitProcess(0)
+        if(popup.visibility == View.INVISIBLE) {
+            exitProcess(0)
+        }
+    }
+
+    private fun startNewGame() {
+        val transaction = fragmentManager!!.beginTransaction()
+        transaction.replace(R.id.fragmentContainer, OverWorld())
+        transaction.commit()
+    }
+
+    private fun closePopup() {
+        popup.visibility = View.INVISIBLE
     }
 }

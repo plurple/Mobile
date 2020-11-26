@@ -1,8 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/OverWorld"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#00FFFFFF"
     android:orientation="horizontal"
-    tools:context="com.example.neutrophil.game.OverWorld"></androidx.constraintlayout.widget.ConstraintLayout>
+    tools:context="com.example.neutrophil.game.OverWorld">
+
+    <ImageButton
+        android:id="@+id/pauseButton"
+        android:layout_width="31dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:contentDescription="@string/pauseButton"
+        android:src="@android:drawable/ic_media_pause"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/healthBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="75dp"
+        android:layout_height="13dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="12dp"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="100"
+        app:layout_constraintStart_toEndOf="@+id/healthText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/healthText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/playerHealth"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/upArow"
+        android:layout_width="46dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="5dp"
+        android:background="#FFFFFF"
+        android:contentDescription="@string/upArrow"
+        android:src="@drawable/upArrow"
+        app:layout_constraintBottom_toTopOf="@+id/downArrow"
+        app:layout_constraintStart_toEndOf="@+id/leftArrow" />
+
+    <ImageButton
+        android:id="@+id/downArrow"
+        android:layout_width="40dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/downArrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/leftArrow"
+        android:contentDescription="@string/downArrow" />
+
+    <ImageButton
+        android:id="@+id/leftArrow"
+        android:layout_width="57dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="52dp"
+        android:src="@drawable/leftArrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/leftArrow" />
+
+    <ImageButton
+        android:id="@+id/rightArrow"
+        android:layout_width="53dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginBottom="45dp"
+        android:src="@drawable/rightArrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/downArrow"
+        android:contentDescription="@string/rightArrow" />
+
+    <Button
+        android:id="@+id/diceRoll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginBottom="50dp"
+        android:text="@string/rollDice"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rightArrow" />
+
+    <TextView
+        android:id="@+id/moveText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/movesLeft"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/downArrow" />
+
+    <TextView
+        android:id="@+id/numMoves"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textColor="#020202"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toTopOf="@+id/moveText"
+        app:layout_constraintEnd_toStartOf="@+id/diceRoll"
+        app:layout_constraintStart_toEndOf="@+id/rightArrow"
+        tools:text="16" />
+
+    <ImageButton
+        android:id="@+id/mapButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:contentDescription="@string/map"
+        android:src="@android:drawable/ic_menu_mapmode"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageButton
+        android:id="@+id/inventoryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="30dp"
+        android:contentDescription="@string/inventory"
+        android:src="@android:drawable/ic_dialog_dialer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/mapButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
