@@ -23,13 +23,14 @@
     <ProgressBar
         android:id="@+id/healthBar"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="75dp"
-        android:layout_height="13dp"
+        android:layout_width="81dp"
+        android:layout_height="23dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="10dp"
         android:indeterminate="false"
         android:max="100"
         android:progress="100"
+        android:scaleY="3"
         app:layout_constraintStart_toEndOf="@+id/healthText"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,7 +51,7 @@
         android:layout_marginStart="5dp"
         android:background="#FFFFFF"
         android:contentDescription="@string/upArrow"
-        android:src="@drawable/upArrow"
+        android:src="@drawable/up_arrow"
         app:layout_constraintBottom_toTopOf="@+id/downArrow"
         app:layout_constraintStart_toEndOf="@+id/leftArrow" />
 
@@ -60,10 +61,10 @@
         android:layout_height="57dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="16dp"
-        android:src="@drawable/downArrow"
+        android:contentDescription="@string/downArrow"
+        android:src="@drawable/down_arrow"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/leftArrow"
-        android:contentDescription="@string/downArrow" />
+        app:layout_constraintStart_toEndOf="@+id/leftArrow" />
 
     <ImageButton
         android:id="@+id/leftArrow"
@@ -71,10 +72,10 @@
         android:layout_height="43dp"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="52dp"
-        android:src="@drawable/leftArrow"
+        android:contentDescription="@string/leftArrow"
+        android:src="@drawable/left_arrow"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:contentDescription="@string/leftArrow" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/rightArrow"
@@ -82,10 +83,10 @@
         android:layout_height="57dp"
         android:layout_marginStart="3dp"
         android:layout_marginBottom="45dp"
-        android:src="@drawable/rightArrow"
+        android:contentDescription="@string/rightArrow"
+        android:src="@drawable/right_arrow"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/downArrow"
-        android:contentDescription="@string/rightArrow" />
+        app:layout_constraintStart_toEndOf="@+id/downArrow" />
 
     <Button
         android:id="@+id/diceRoll"
@@ -143,5 +144,16 @@
         android:src="@android:drawable/ic_dialog_dialer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/mapButton" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/healthBar"
+        app:layout_constraintEnd_toEndOf="@+id/healthBar"
+        app:layout_constraintStart_toStartOf="@+id/healthBar"
+        app:layout_constraintTop_toTopOf="@+id/healthBar"
+        tools:text="100/100" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

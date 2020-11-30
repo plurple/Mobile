@@ -1,4 +1,4 @@
 package com.example.neutrophil
 
-class SoundManager {
+object SoundManager {
 }

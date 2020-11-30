@@ -8,7 +8,7 @@
     tools:context="com.example.neutrophil.game.Battle">
 
     <android.gesture.GestureOverlayView
-        android:id="@+id/gOverlay"
+        android:id="@+id/atkInput"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

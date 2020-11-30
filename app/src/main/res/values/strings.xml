@@ -24,5 +24,13 @@
     <string name="movesLeft">Moves Left</string>
     <string name="map">map</string>
     <string name="inventory">inventory</string>
+    <string name="retreat">retreat</string>
+    <string name="background">background</string>
+    <string name="attacks">Attacks</string>
+    <string name="items">Items</string>
+    <string name="neutrophil">Neutrophil</string>
+    <string name="savedPlayer">savedPlayer</string>
+    <string name="savedSettings">savedSettings</string>
+
 
 </resources>
