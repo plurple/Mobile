@@ -10,8 +10,6 @@ import com.example.neutrophil.menus.Pause
 import kotlinx.android.synthetic.main.fragment_over_world.*
 
 class OverWorld : Fragment() {
-    private var player = Player();
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }

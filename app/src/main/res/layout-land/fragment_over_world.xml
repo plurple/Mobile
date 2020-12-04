@@ -9,10 +9,19 @@
     android:orientation="horizontal"
     tools:context="com.example.neutrophil.game.OverWorld">
 
+    <com.example.neutrophil.game.OverWorldView
+        android:id="@+id/gameView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageButton
         android:id="@+id/pauseButton"
-        android:layout_width="31dp"
-        android:layout_height="34dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:contentDescription="@string/pauseButton"
@@ -23,8 +32,8 @@
     <ProgressBar
         android:id="@+id/healthBar"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="81dp"
-        android:layout_height="23dp"
+        android:layout_width="80dp"
+        android:layout_height="25dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:indeterminate="false"
@@ -46,45 +55,44 @@
 
     <ImageButton
         android:id="@+id/upArow"
-        android:layout_width="46dp"
-        android:layout_height="43dp"
+        android:layout_width="40dp"
+        android:layout_height="55dp"
         android:layout_marginStart="5dp"
-        android:background="#FFFFFF"
         android:contentDescription="@string/upArrow"
-        android:src="@drawable/up_arrow"
+        android:src="@drawable/arrow_up"
         app:layout_constraintBottom_toTopOf="@+id/downArrow"
         app:layout_constraintStart_toEndOf="@+id/leftArrow" />
 
     <ImageButton
         android:id="@+id/downArrow"
         android:layout_width="40dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="10dp"
         android:contentDescription="@string/downArrow"
-        android:src="@drawable/down_arrow"
+        android:src="@drawable/arrow_down"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/leftArrow" />
 
     <ImageButton
         android:id="@+id/leftArrow"
-        android:layout_width="57dp"
-        android:layout_height="43dp"
+        android:layout_width="55dp"
+        android:layout_height="40dp"
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="52dp"
+        android:layout_marginBottom="30dp"
         android:contentDescription="@string/leftArrow"
-        android:src="@drawable/left_arrow"
+        android:src="@drawable/arrow_left"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/rightArrow"
-        android:layout_width="53dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginBottom="45dp"
+        android:layout_width="55dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="30dp"
         android:contentDescription="@string/rightArrow"
-        android:src="@drawable/right_arrow"
+        android:src="@drawable/arrow_right"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/downArrow" />
 
@@ -93,7 +101,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="30dp"
         android:text="@string/rollDice"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/rightArrow" />
@@ -103,7 +111,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:text="@string/movesLeft"
         android:textColor="#000000"
         android:textSize="20sp"
