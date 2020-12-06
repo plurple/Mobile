@@ -13,34 +13,22 @@ class OverWorldThread(private val surfaceHolder: SurfaceHolder, private val over
     override fun run() {
         while(running){
             canvas = null
-            updateFrame()
-        }
-    }
-
-    private fun updateFrame() {
-        try {
-            updateOverWorldView()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        } finally {
-            unlockCanvas()
-        }
-    }
-
-    private fun updateOverWorldView() {
-        canvas = this.surfaceHolder.lockCanvas()
-        synchronized(surfaceHolder) {
-            this.overWorldView.update()
-            this.overWorldView.draw(canvas!!)
-        }
-    }
-
-    private fun unlockCanvas() {
-        if (canvas == null) return
-        try {
-            surfaceHolder.unlockCanvasAndPost(canvas)
-        } catch (e: Exception) {
-            e.printStackTrace()
+            try {
+                canvas = this.surfaceHolder.lockCanvas()
+                synchronized(surfaceHolder) {
+                    this.overWorldView.update()
+                    this.overWorldView.draw(canvas!!)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            } finally {
+                if (canvas == null) return
+                try {
+                    surfaceHolder.unlockCanvasAndPost(canvas)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
         }
     }
 

@@ -1,13 +1,19 @@
 package com.example.neutrophil
 
 import android.content.Context
+import android.content.SharedPreferences
 import com.example.neutrophil.game.Player
 import com.example.neutrophil.menus.Settings
 import com.google.gson.Gson
 
 object SaveManager{
-    private val context = MainActivity.mainActivityContext()
-    private val sharedPref = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
+    private lateinit var context :Context
+    private lateinit var sharedPref :SharedPreferences
+
+    fun addContext(applicationContext: Context) {
+        context = applicationContext
+        sharedPref = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
+    }
 
     fun savePlayer(player : Player)
     {
@@ -38,5 +44,4 @@ object SaveManager{
         if(savedSetings!!.isEmpty()) return Settings()
         return Gson().fromJson(savedSetings, Settings::class.java)
     }
-
 }

@@ -8,7 +8,6 @@ class OverWorldLoop(var context: Context) {
     var player = Player(context)
     var tileManager = TileManager()
 
-
     init {
         player = SaveManager.loadPlayer()
         player.setup()

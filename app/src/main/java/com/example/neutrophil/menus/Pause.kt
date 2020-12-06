@@ -30,10 +30,10 @@ class Pause : Fragment() {
 
 
     private fun openSettings() {
-            val transaction = fragmentManager!!.beginTransaction()
-            transaction.replace(R.id.fragmentContainer, Settings())
-            transaction.addToBackStack("OpenSettings")
-            transaction.commit()
+        val transaction = fragmentManager!!.beginTransaction()
+        transaction.replace(R.id.fragmentContainer, Settings())
+        transaction.addToBackStack("OpenSettings")
+        transaction.commit()
     }
 
     private fun closePause() {

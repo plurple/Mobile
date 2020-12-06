@@ -31,6 +31,14 @@ class OverWorld : Fragment() {
         downArrow.setOnClickListener{ moveDown() }
         leftArrow.setOnClickListener{ moveLeft() }
         rightArrow.setOnClickListener{ moveRight() }
+        setUpHealthBar()
+    }
+
+    fun setUpHealthBar()
+    {
+        healthBar.max = gameView.gameLoop.player.maxHealth
+        healthBar.progress = gameView.gameLoop.player.health
+        healthValue.text = healthBar.progress.toString() + "/" + healthBar.max.toString()
     }
 
     private fun openPause() {

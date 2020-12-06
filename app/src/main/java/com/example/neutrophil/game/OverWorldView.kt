@@ -7,15 +7,11 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 
 class OverWorldView(context : Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback {
-    private lateinit var thread : OverWorldThread
+    private var thread : OverWorldThread
     val gameLoop : OverWorldLoop = OverWorldLoop(context)
 
     init {
         holder.addCallback(this)
-        newOverWorldThread()
-    }
-
-    private fun newOverWorldThread() {
         thread = OverWorldThread(holder, this)
     }
 
@@ -29,17 +25,13 @@ class OverWorldView(context : Context, attributes: AttributeSet) : SurfaceView(c
     override fun surfaceDestroyed(holder: SurfaceHolder) {
         var retry = true
         while(retry){
-            tryWaitingForThreadToDie()
+            try {
+                thread.setRunning(false)
+                thread.join()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
             retry = false
-        }
-    }
-
-    private fun tryWaitingForThreadToDie() {
-        try {
-            thread.setRunning(false)
-            thread.join()
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
     }
 
@@ -52,12 +44,4 @@ class OverWorldView(context : Context, attributes: AttributeSet) : SurfaceView(c
         gameLoop.draw(canvas)
     }
 
-    fun pause() {
-        gameLoop.pause()
-    }
-
-    fun resume(){
-        newOverWorldThread()
-        gameLoop.resume()
-    }
 }
