@@ -11,7 +11,7 @@ import com.example.neutrophil.R
 class Player {
     private val context = MainActivity.mainActivityContext()
     var maxHealth = 100;
-    var health = maxHealth;
+    var health = 65;
     var numberSteps = 6;
     var diceSides = 6;
     var numDice = 1;
@@ -25,5 +25,21 @@ class Player {
 
     fun draw(canvas: Canvas) {
         canvas.drawBitmap(image, position.x, position.y,null )
+    }
+
+    fun moveUp(){
+        position.y -= image.height
+    }
+
+    fun moveDown(){
+        position.y += image.height
+    }
+
+    fun moveLeft(){
+        position.x -= image.width
+    }
+
+    fun moveRight(){
+        position.x += image.width
     }
 }

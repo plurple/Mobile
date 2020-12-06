@@ -27,7 +27,7 @@ class OverWorld : Fragment() {
         inventoryButton.setOnClickListener{ openInventory() }
         mapButton.setOnClickListener{ openMap() }
         diceRoll.setOnClickListener{ rollDice() }
-        upArow.setOnClickListener{ moveUp() }
+        upArrow.setOnClickListener{ moveUp() }
         downArrow.setOnClickListener{ moveDown() }
         leftArrow.setOnClickListener{ moveLeft() }
         rightArrow.setOnClickListener{ moveRight() }
@@ -59,19 +59,19 @@ class OverWorld : Fragment() {
     }
 
     private fun moveUp() {
-        //TODO move the player up a tile
+        gameView.gameLoop.player.moveUp()
     }
 
     private fun moveDown() {
-        //TODO move the player down a tile
+        gameView.gameLoop.player.moveDown()
     }
 
     private fun moveLeft() {
-        //TODO move the player left a tile
+        gameView.gameLoop.player.moveLeft()
     }
 
     private fun moveRight() {
-        //TODO move the player right a tile
+        gameView.gameLoop.player.moveRight()
     }
 
 }

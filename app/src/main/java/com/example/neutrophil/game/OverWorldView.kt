@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 
-class OverWorldView(context : Context, attributes: AttributeSet) : SurfaceView(context), SurfaceHolder.Callback {
+class OverWorldView(context : Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback {
     private lateinit var thread : OverWorldThread
     val gameLoop : OverWorldLoop = OverWorldLoop(context)
 

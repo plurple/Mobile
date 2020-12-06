@@ -54,7 +54,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/upArow"
+        android:id="@+id/upArrow"
         android:layout_width="40dp"
         android:layout_height="55dp"
         android:layout_marginStart="5dp"
