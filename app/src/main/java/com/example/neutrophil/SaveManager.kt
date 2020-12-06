@@ -20,7 +20,7 @@ object SaveManager{
     fun loadPlayer() : Player
     {
         val savedPlayer = sharedPref.getString(context.getString(R.string.savedPlayer), "")
-        if(savedPlayer!!.isEmpty()) return Player()
+        if(savedPlayer!!.isEmpty()) return Player(context)
         return Gson().fromJson(savedPlayer, Player::class.java)
     }
 

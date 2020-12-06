@@ -5,7 +5,7 @@ import android.graphics.Canvas
 import com.example.neutrophil.SaveManager
 
 class OverWorldLoop(var context: Context) {
-    var player = Player()
+    var player = Player(context)
     var tileManager = TileManager()
 
 
