@@ -19,8 +19,7 @@ class TileManager {
     fun setup(context: Context){
         for(i in 0..TileGlobals.numHorizontalTiles+1) {
             for (j in 0..TileGlobals.numVerticalTiles+1) {
-                var tile: Tile = Tile(context)
-                tile.setTile(context, (0..4).random())
+                var tile: Tile = Tile(context, (0..4).random())
                 tile.position = Float2(position.x + TileGlobals.tileSize * i.toFloat(), position.y + TileGlobals.tileSize * j.toFloat())
                 tiles.add(tile)
             }
