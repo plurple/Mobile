@@ -2,8 +2,10 @@ package com.example.neutrophil.game
 
 import android.content.Context
 import android.graphics.Canvas
+import android.renderscript.Float2
 
 class TileManager {
+    var position = Float2(0.0f, 0.0f)
     var tiles = mutableListOf<Tile>()
 
     fun draw(canvas: Canvas) {
@@ -11,16 +13,17 @@ class TileManager {
     }
 
     fun update(){
-        TODO("Not yet implemented")
+        for (tile in tiles) tile.update()
     }
 
     fun setup(context: Context){
-        for(i in 0..4)        {
-            var tile:Tile = Tile(context)
-            tile.setTile(context, i)
-            tile.position.x = tile.image.width * i.toFloat()
-            tiles.add(tile)
+        for(i in 0..TileGlobals.numHorizontalTiles+1) {
+            for (j in 0..TileGlobals.numVerticalTiles+1) {
+                var tile: Tile = Tile(context)
+                tile.setTile(context, (0..4).random())
+                tile.position = Float2(position.x + TileGlobals.tileSize * i.toFloat(), position.y + TileGlobals.tileSize * j.toFloat())
+                tiles.add(tile)
+            }
         }
-
     }
 }

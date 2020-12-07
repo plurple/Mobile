@@ -11,7 +11,7 @@ class Battle : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-
+    //TODO("get the battle stuff working recognising the gestures that are unlocked and stuff")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?
     ): View? {

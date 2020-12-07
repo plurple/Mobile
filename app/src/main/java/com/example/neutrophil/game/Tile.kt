@@ -19,7 +19,7 @@ class Tile(context:Context) {
     }
 
     fun update(){
-        TODO("Not yet implemented")
+        TODO("check if player and enemy on the same square")
     }
 
     fun setTile(context: Context, tileType : Int) {
