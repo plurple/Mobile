@@ -23,19 +23,39 @@ class Player(private val context : Context) {
         canvas.drawBitmap(image, position.x, position.y,null )
     }
 
+    fun rollDice(){
+        if(numberSteps <= 0) {
+            for (i in 1..numDice) {
+                numberSteps += (1..diceSides).random()
+            }
+        }
+    }
+
     fun moveUp(){
-        position.y -= image.height
+        if(numberSteps > 0) {
+            position.y -= image.height
+            numberSteps--
+        }
     }
 
     fun moveDown(){
-        position.y += image.height
+        if(numberSteps > 0) {
+            position.y += image.height
+            numberSteps--
+        }
     }
 
     fun moveLeft(){
-        position.x -= image.width
+        if(numberSteps > 0) {
+            position.x -= image.width
+            numberSteps--
+        }
     }
 
     fun moveRight(){
-        position.x += image.width
+        if(numberSteps > 0) {
+            position.x += image.width
+            numberSteps--
+        }
     }
 }

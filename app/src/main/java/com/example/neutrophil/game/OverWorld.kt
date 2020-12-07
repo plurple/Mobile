@@ -1,5 +1,10 @@
 package com.example.neutrophil.game
 
+import android.content.Context
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +13,19 @@ import androidx.fragment.app.Fragment
 import com.example.neutrophil.R
 import com.example.neutrophil.menus.Pause
 import kotlinx.android.synthetic.main.fragment_over_world.*
+import kotlin.math.abs
 
-class OverWorld : Fragment() {
+class OverWorld(context: Context) : Fragment(), SensorEventListener {
+    private var sensorManager : SensorManager
+    private var accelerometer : Sensor
+
+    init{
+        sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+
+        sensorManager!!.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -31,14 +47,15 @@ class OverWorld : Fragment() {
         downArrow.setOnClickListener{ moveDown() }
         leftArrow.setOnClickListener{ moveLeft() }
         rightArrow.setOnClickListener{ moveRight() }
-        setUpHealthBar()
+        setUpText()
     }
 
-    fun setUpHealthBar()
+    fun setUpText()
     {
         healthBar.max = gameView.gameLoop.player.maxHealth
         healthBar.progress = gameView.gameLoop.player.health
         healthValue.text = healthBar.progress.toString() + "/" + healthBar.max.toString()
+        numMoves.text = gameView.gameLoop.player.numberSteps.toString()
     }
 
     private fun openPause() {
@@ -63,23 +80,42 @@ class OverWorld : Fragment() {
     }
 
     private fun rollDice() {
-        //TODO roll the dice here will also be able to shake the device to roll.
+        gameView.gameLoop.player.rollDice()
+        setUpText()
     }
 
     private fun moveUp() {
         gameView.gameLoop.player.moveUp()
+        setUpText()
     }
 
     private fun moveDown() {
         gameView.gameLoop.player.moveDown()
+        setUpText()
     }
 
     private fun moveLeft() {
         gameView.gameLoop.player.moveLeft()
+        setUpText()
     }
 
     private fun moveRight() {
         gameView.gameLoop.player.moveRight()
+        setUpText()
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) { }
+
+    override fun onSensorChanged(event: SensorEvent?){
+        if (event != null) {
+            val x = abs(event.values[0]/ SensorManager.GRAVITY_EARTH)
+            val y = abs(event.values[1]/ SensorManager.GRAVITY_EARTH)
+            val z = abs(event.values[2]/ SensorManager.GRAVITY_EARTH)
+
+            if (x+y+z > 5.0f) {
+                rollDice()
+            }
+        }
     }
 
 }

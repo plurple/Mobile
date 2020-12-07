@@ -10,6 +10,8 @@ class OverWorldView(context : Context, attributes: AttributeSet) : SurfaceView(c
     private var thread : OverWorldThread
     val gameLoop : OverWorldLoop = OverWorldLoop(context)
 
+
+
     init {
         holder.addCallback(this)
         thread = OverWorldThread(holder, this)
@@ -41,6 +43,7 @@ class OverWorldView(context : Context, attributes: AttributeSet) : SurfaceView(c
 
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
+        canvas.drawRGB(255,255,255);
         gameLoop.draw(canvas)
     }
 

@@ -72,7 +72,7 @@ class MainMenu : Fragment() {
 
     private fun startNewGame() {
         val transaction = fragmentManager!!.beginTransaction()
-        transaction.replace(R.id.fragmentContainer, OverWorld())
+        transaction.replace(R.id.fragmentContainer, OverWorld(context!!))
         transaction.commit()
     }
 

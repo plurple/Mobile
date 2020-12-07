@@ -21,13 +21,4 @@ class OverWorldLoop(var context: Context) {
         tileManager.draw(canvas)
         player.draw(canvas)
     }
-
-    fun pause() {
-        TODO("Not yet implemented")
-    }
-
-    fun resume() {
-        TODO("Not yet implemented")
-    }
-
 }
