@@ -1,19 +1,49 @@
 package com.example.neutrophil.game
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Canvas
 import android.renderscript.Float2
 import com.example.neutrophil.R
 
-class Enemy(context: Context, enemyType : Int) : Entity(context){
+class Enemy(@Transient var context: Context, var enemyType : Int) {
+    var name = "enemy"
+    var maxHealth = 100
+    var health = maxHealth
+    var numberSteps = 0
+    var diceSides = 6
+    var numDice = 1
+    var position = Float2(0.0f, 0.0f)
+    @Transient lateinit var image: Bitmap
+
     init{
-        setEnemy(context, enemyType)
+        setEnemy(context)
         rollDice()
         position = Float2(TileGlobals.tileSize * (0 until TileGlobals.numHorizontalTiles).random(), TileGlobals.tileSize * (0 until TileGlobals.numVerticalTiles).random())
     }
 
-    fun setEnemy(context: Context, enemyType: Int) {
+    fun draw(canvas: Canvas) {
+        canvas.drawBitmap(image, position.x, position.y,null )
+    }
+
+    fun rollDice(){
+        if(numberSteps <= 0) {
+            for (i in 1..numDice) {
+                numberSteps += (1..diceSides).random()
+            }
+        }
+    }
+
+    fun update(){
+
+    }
+
+    fun setEnemy(context: Context) {
         when(enemyType) {
+            -1 ->{
+                image = BitmapFactory.decodeResource(context.resources, R.drawable.arrow_up)
+            }
             0 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.bean)
             }

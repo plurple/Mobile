@@ -7,14 +7,14 @@ import android.graphics.Canvas
 import android.renderscript.Float2
 import com.example.neutrophil.R
 
-class Tile(private var context : Context, tileType: Int) {
+class Tile(@Transient private var context : Context, var tileType: Int) {
     var position = Float2(0.0f, 0.0f)
     var onScreen = true
     var discovered = true
-    var image: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.tile_blue)
+    @Transient lateinit var image: Bitmap
 
     init{
-        setTile(context, tileType)
+        setTile(context)
     }
 
     fun draw(canvas: Canvas) {
@@ -26,7 +26,7 @@ class Tile(private var context : Context, tileType: Int) {
         //TODO("check if player and enemy on the same square")
     }
 
-    fun setTile(context: Context, tileType : Int) {
+    fun setTile(context: Context) {
         when(tileType) {
             0 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.tile_blue)

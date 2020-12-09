@@ -4,7 +4,8 @@ import android.content.Context
 import android.graphics.Canvas
 
 class EnemyManager {
-    var enemies = mutableListOf<Enemy>()
+    @Transient var enemies = mutableListOf<Enemy>()
+    var numEnemies = 0
 
     fun draw(canvas: Canvas) {
         for (enemy in enemies) enemy.draw(canvas)
@@ -15,9 +16,17 @@ class EnemyManager {
     }
 
     fun setup(context: Context){
-        for(i in 0..9) {
-            var enemy: Enemy = Enemy(context, (0..4).random())
-            enemies.add(enemy)
+        if(enemies.size == 0) {
+            for (i in 0..9) {
+                var enemy: Enemy = Enemy(context, (0..4).random())
+                enemies.add(enemy)
+                numEnemies++
+            }
+        }
+        else{
+            for (enemy in enemies){
+                enemy.setEnemy(context)
+            }
         }
     }
 }

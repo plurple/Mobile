@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="horizontal"
     tools:context="com.example.neutrophil.game.Battle">
 
@@ -58,7 +59,8 @@
         android:progress="100"
         android:scaleY="4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enemyName" />
+        app:layout_constraintTop_toBottomOf="@+id/enemyName"
+        android:progressTint="#C21807"/>
 
     <TextView
         android:id="@+id/enemyHealthValues"
@@ -91,7 +93,8 @@
         android:progress="100"
         android:scaleY="4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playerName" />
+        app:layout_constraintTop_toBottomOf="@+id/playerName"
+        android:progressTint="#C21807"/>
 
     <TextView
         android:id="@+id/playerHealthValues"
@@ -121,6 +124,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/items"
         tools:text="Example text to give the player information and instructions" />
+
+    <ImageView
+        android:id="@+id/enemyView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/arrow_down"
+        app:layout_constraintBottom_toBottomOf="@+id/atkInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/atkInput"
+        app:layout_constraintTop_toTopOf="@+id/atkInput"
+        app:srcCompat="@drawable/bean" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

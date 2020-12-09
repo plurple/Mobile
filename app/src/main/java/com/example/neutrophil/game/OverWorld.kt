@@ -11,15 +11,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.neutrophil.R
+import com.example.neutrophil.SaveManager
 import com.example.neutrophil.menus.Pause
 import kotlinx.android.synthetic.main.fragment_over_world.*
 import kotlin.math.abs
 
-class OverWorld(context: Context) : Fragment(), SensorEventListener {
+class OverWorld(context: Context) : Fragment(), SensorEventListener, BattleListener {
     private var sensorManager : SensorManager
     private var accelerometer : Sensor
 
-    init{
+    init {
         sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
@@ -47,18 +48,25 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener {
         downArrow.setOnClickListener{ moveDown() }
         leftArrow.setOnClickListener{ moveLeft() }
         rightArrow.setOnClickListener{ moveRight() }
-        setUpText()
+        gameView.gameLoop.lateInit(this)
+        setUpUI()
     }
 
-    fun setUpText()
-    {
+    private fun setUpUI() {
         healthBar.max = gameView.gameLoop.player.maxHealth
         healthBar.progress = gameView.gameLoop.player.health
         healthValue.text = healthBar.progress.toString() + "/" + healthBar.max.toString()
         numMoves.text = gameView.gameLoop.player.numberSteps.toString()
     }
 
+    private fun saveGameLoop() {
+        SaveManager.savePlayer(gameView.gameLoop.player)
+        SaveManager.saveEnemies(gameView.gameLoop.enemyManager)
+        SaveManager.saveTiles(gameView.gameLoop.tileManager)
+    }
+    
     private fun openPause() {
+        saveGameLoop()
         val transaction = fragmentManager!!.beginTransaction()
         transaction.replace(R.id.fragmentContainer, Pause())
         transaction.addToBackStack("OpenPauseMenu")
@@ -66,6 +74,7 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener {
     }
 
     private fun openInventory() {
+        saveGameLoop()
         val transaction = fragmentManager!!.beginTransaction()
         transaction.replace(R.id.fragmentContainer, Inventory())
         transaction.addToBackStack("OpenInventory")
@@ -73,6 +82,7 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener {
     }
 
     private fun openMap() {
+        saveGameLoop()
         val transaction = fragmentManager!!.beginTransaction()
         transaction.replace(R.id.fragmentContainer, Map())
         transaction.addToBackStack("OpenMap")
@@ -81,32 +91,41 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener {
 
     private fun rollDice() {
         gameView.gameLoop.player.rollDice()
-        setUpText()
+        setUpUI()
     }
 
     private fun moveUp() {
         gameView.gameLoop.player.moveUp()
-        setUpText()
+        setUpUI()
     }
 
     private fun moveDown() {
         gameView.gameLoop.player.moveDown()
-        setUpText()
+        setUpUI()
     }
 
     private fun moveLeft() {
         gameView.gameLoop.player.moveLeft()
-        setUpText()
+        setUpUI()
     }
 
     private fun moveRight() {
         gameView.gameLoop.player.moveRight()
-        setUpText()
+        setUpUI()
+    }
+
+    override fun onBattleReady(enemy: Enemy) {
+        saveGameLoop()
+        SaveManager.saveEnemy(enemy)
+        val transaction = fragmentManager!!.beginTransaction()
+        transaction.replace(R.id.fragmentContainer, Battle())
+        transaction.addToBackStack("OpenBattle")
+        transaction.commit()
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) { }
 
-    override fun onSensorChanged(event: SensorEvent?){
+    override fun onSensorChanged(event: SensorEvent?) {
         if (event != null) {
             val x = abs(event.values[0]/ SensorManager.GRAVITY_EARTH)
             val y = abs(event.values[1]/ SensorManager.GRAVITY_EARTH)
@@ -117,5 +136,4 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener {
             }
         }
     }
-
 }

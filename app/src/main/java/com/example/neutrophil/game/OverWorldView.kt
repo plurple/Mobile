@@ -10,8 +10,6 @@ class OverWorldView(context : Context, attributes: AttributeSet) : SurfaceView(c
     private var thread : OverWorldThread
     val gameLoop : OverWorldLoop = OverWorldLoop(context)
 
-
-
     init {
         holder.addCallback(this)
         thread = OverWorldThread(holder, this)

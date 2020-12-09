@@ -5,6 +5,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.example.neutrophil.menus.MainMenu
 
+
 class MainActivity : AppCompatActivity() {
     init {
         instance = this
@@ -14,6 +15,7 @@ class MainActivity : AppCompatActivity() {
         private var instance: MainActivity? = null
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -22,15 +24,14 @@ class MainActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-
-
-        setContentView(R.layout.activity_main)
         SaveManager.addContext(applicationContext)
+        setContentView(R.layout.activity_main)
 
         //open up the main menu fragment
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentContainer, MainMenu())
         transaction.commit()
+
 
         SaveManager.loadSettings()
     }

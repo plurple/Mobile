@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.neutrophil.R
+import com.example.neutrophil.SaveManager
 import com.example.neutrophil.game.OverWorld
 import kotlinx.android.synthetic.main.fragment_main_menu.*
 import kotlin.system.exitProcess
@@ -71,6 +72,7 @@ class MainMenu : Fragment() {
     }
 
     private fun startNewGame() {
+        SaveManager.clearData()
         val transaction = fragmentManager!!.beginTransaction()
         transaction.replace(R.id.fragmentContainer, OverWorld(context!!))
         transaction.commit()
