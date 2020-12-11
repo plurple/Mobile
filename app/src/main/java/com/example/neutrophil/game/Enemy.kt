@@ -83,5 +83,12 @@ class Enemy(@Transient var context: Context, var enemyType : Int) {
         }
     }
 
+    fun modifyHealth(damage : Int){
+        health += damage
+        if(health <= 0)
+            health = 0
+        if(health > maxHealth)
+            health = maxHealth
+    }
 
 }

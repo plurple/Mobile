@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.neutrophil.R
 import com.example.neutrophil.SaveManager
@@ -69,7 +68,13 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener, Batt
                 val action = it[0].name
                 for(ability in battleView.gameLoop.player.abilities)
                 {
-                    if(ability.name == action) Toast.makeText(context, action, Toast.LENGTH_SHORT).show()
+                    if(ability.name == action) {
+                        if(ability.type == battleView.gameLoop.battleEnemy.variety)
+                            battleView.gameLoop.battleEnemy.modifyHealth(ability.damage*2)
+                        else
+                            battleView.gameLoop.battleEnemy.modifyHealth(ability.damage)
+                    }
+                    setUI()
                 }
             }
         }
