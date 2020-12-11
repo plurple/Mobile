@@ -61,7 +61,6 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener {
         enemyHealth.max = enemy.maxHealth
         enemyHealth.progress = enemy.health
         enemyHealthValues.text = enemyHealth.progress.toString() + "/" + enemyHealth.max.toString()
-        enemyView.setImageBitmap(enemy.image)
     }
 
     override fun onGesturePerformed(overlay: GestureOverlayView?, gesture: Gesture?) {

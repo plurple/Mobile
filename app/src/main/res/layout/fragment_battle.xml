@@ -4,16 +4,135 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="horizontal"
     tools:context="com.example.neutrophil.game.Battle">
 
+    <Button
+        android:id="@+id/retreatButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/retreat"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/atkInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/attacks"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/retreatButton" />
+
+    <Button
+        android:id="@+id/items"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/items"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/atkInfo" />
+
+    <TextView
+        android:id="@+id/enemyName"
+        android:layout_width="125dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Enemy Type" />
+
+    <ProgressBar
+        android:id="@+id/enemyHealth"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="125dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:max="100"
+        android:progress="100"
+        android:scaleY="4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enemyName"
+        android:progressTint="#C21807"/>
+
+    <TextView
+        android:id="@+id/enemyHealthValues"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/enemyHealth"
+        app:layout_constraintEnd_toEndOf="@+id/enemyHealth"
+        app:layout_constraintStart_toStartOf="@+id/enemyHealth"
+        app:layout_constraintTop_toTopOf="@+id/enemyHealth"
+        tools:text="100/100" />
+
+    <TextView
+        android:id="@+id/playerName"
+        android:layout_width="125sp"
+        android:layout_height="25dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="180dp"
+        android:text="@string/neutrophil"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enemyHealth" />
+
+    <ProgressBar
+        android:id="@+id/playerHealth"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="125dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:max="100"
+        android:progress="100"
+        android:scaleY="4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playerName"
+        android:progressTint="#C21807"/>
+
+    <TextView
+        android:id="@+id/playerHealthValues"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/playerHealth"
+        app:layout_constraintEnd_toEndOf="@+id/playerHealth"
+        app:layout_constraintStart_toStartOf="@+id/playerHealth"
+        app:layout_constraintTop_toTopOf="@+id/playerHealth"
+        tools:text="100/100" />
+
     <android.gesture.GestureOverlayView
         android:id="@+id/atkInput"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="570dp"
+        android:layout_height="338dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></android.gesture.GestureOverlayView>
+        app:layout_constraintTop_toTopOf="parent">
+        <com.example.neutrophil.game.OverWorldView
+            android:id="@+id/battleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.gesture.GestureOverlayView>
+
+    <TextView
+        android:id="@+id/information"
+        android:layout_width="425dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/items"
+        tools:text="Example text to give the player information and instructions"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -112,6 +112,14 @@
         android:layout_height="338dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+        <com.example.neutrophil.game.OverWorldView
+            android:id="@+id/battleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </android.gesture.GestureOverlayView>
 
@@ -123,18 +131,8 @@
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/items"
-        tools:text="Example text to give the player information and instructions" />
-
-    <ImageView
-        android:id="@+id/enemyView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/arrow_down"
-        app:layout_constraintBottom_toBottomOf="@+id/atkInput"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/atkInput"
-        app:layout_constraintTop_toTopOf="@+id/atkInput"
-        app:srcCompat="@drawable/bean" />
+        tools:text="Example text to give the player information and instructions"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
