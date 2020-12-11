@@ -10,22 +10,33 @@ class LoopData(){
     var battle = false
 }
 
-class OverWorldLoop(var context: Context) : BattleListener{
+class OverWorldLoop(var context: Context) : OverWorldListener, BattleListener {
     var player = Player(context)
     var tileManager = TileManager()
-    var enemyManager = EnemyManager()
+    var allEnemies = EnemyManager()
+    var battleEnemy = Enemy(context, 0)
     var loopData = LoopData()
+    private lateinit var overWorldListener : OverWorldListener
     private lateinit var battleListener : BattleListener
 
-    fun lateInit(bListener: BattleListener) {
+    fun overWorldLateInit(owListener: OverWorldListener) {
         tileManager = SaveManager.loadTiles()
         tileManager.setup(context)
-        enemyManager = SaveManager.loadEnemies()
-        enemyManager.setup(context)
+        allEnemies = SaveManager.loadEnemies()
+        allEnemies.setup(context)
         player = SaveManager.loadPlayer()
         player.setUp(context)
         loopData = SaveManager.loadLoopData()
         loopData.battle = false
+        overWorldListener = owListener
+    }
+
+    fun battleLateInit(bListener : BattleListener){
+        player = SaveManager.loadPlayer()
+        player.setUp(context)
+        battleEnemy = SaveManager.loadEnemy()
+        battleEnemy.setEnemy(context)
+        loopData = SaveManager.loadLoopData()
         battleListener = bListener
     }
 
@@ -34,17 +45,22 @@ class OverWorldLoop(var context: Context) : BattleListener{
             if (player.numberSteps == 0 && loopData.playerTurn) {
                 onEnemyTurn()
             }
-            var enemy = player.checkForOverlap(enemyManager.enemies)
+            var enemy = player.checkForOverlap(allEnemies.enemies)
             if (enemy != null) {
-                enemyManager.enemies.remove(enemy)
-                enemyManager.numEnemies--
+                allEnemies.enemies.remove(enemy)
+                allEnemies.numEnemies--
                 onBattleReady(enemy)
             }
             if (loopData.enemyTurn) {
                 Thread.sleep(150)
-                if (enemyManager.update()) {
+                if (allEnemies.update()) {
                     onPlayerTurn()
                 }
+            }
+        }
+        else{
+            if(loopData.enemyTurn){
+                battleEnemy.battleUpdate(player)
             }
         }
     }
@@ -53,24 +69,28 @@ class OverWorldLoop(var context: Context) : BattleListener{
         if(!loopData.battle) {
             tileManager.draw(canvas)
             player.draw(canvas)
-            enemyManager.draw(canvas)
+            allEnemies.draw(canvas)
         }
     }
 
     override fun onBattleReady(enemy: Enemy) {
         loopData.battle = true
-        battleListener.onBattleReady(enemy)
+        overWorldListener.onBattleReady(enemy)
     }
 
     override fun onPlayerTurn() {
         loopData.enemyTurn = false
-        battleListener.onPlayerTurn()
-        enemyManager.rollDice()
+        overWorldListener.onPlayerTurn()
+        allEnemies.rollDice()
     }
 
     override fun onEnemyTurn() {
         loopData.playerTurn = false
         loopData.enemyTurn = true
-        battleListener.onEnemyTurn()
+        overWorldListener.onEnemyTurn()
+    }
+
+    override fun battleOver(){
+
     }
 }

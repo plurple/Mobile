@@ -14,9 +14,8 @@ import com.example.neutrophil.R
 import com.example.neutrophil.SaveManager
 import kotlinx.android.synthetic.main.fragment_battle.*
 
-class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener {
-    lateinit var player : Player
-    lateinit var enemy : Enemy
+
+class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener, BattleListener {
     private var gLibrary: GestureLibrary? = null
 
 
@@ -40,26 +39,25 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        player = SaveManager.loadPlayer()
-        enemy = SaveManager.loadEnemy()
+        battleView.gameLoop.battleLateInit(this)
         setUI()
         retreatButton.setOnClickListener { retreat() }
         atkInput.addOnGesturePerformedListener(this)
     }
 
     private fun retreat() {
-        SaveManager.savePlayer(player)
+        SaveManager.savePlayer(battleView.gameLoop.player)
         fragmentManager!!.popBackStack()
     }
 
     private fun setUI()
     {
-        playerHealth.max = player.maxHealth
-        playerHealth.progress = player.health
+        playerHealth.max = battleView.gameLoop.player.maxHealth
+        playerHealth.progress = battleView.gameLoop.player.health
         playerHealthValues.text = playerHealth.progress.toString() + "/" + playerHealth.max.toString()
-        enemyName.text = enemy.name
-        enemyHealth.max = enemy.maxHealth
-        enemyHealth.progress = enemy.health
+        enemyName.text = battleView.gameLoop.battleEnemy.name
+        enemyHealth.max = battleView.gameLoop.battleEnemy.maxHealth
+        enemyHealth.progress = battleView.gameLoop.battleEnemy.health
         enemyHealthValues.text = enemyHealth.progress.toString() + "/" + enemyHealth.max.toString()
     }
 
@@ -69,8 +67,16 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener {
         predictions?.let {
             if (it.size > 0 && it[0].score > 1.0) {
                 val action = it[0].name
-                Toast.makeText(context, action, Toast.LENGTH_SHORT).show()
+                for(ability in battleView.gameLoop.player.abilities)
+                {
+                    if(ability.name == action) Toast.makeText(context, action, Toast.LENGTH_SHORT).show()
+                }
             }
         }
+    }
+
+    override fun battleOver() {
+        SaveManager.savePlayer(battleView.gameLoop.player)
+        fragmentManager!!.popBackStack()
     }
 }

@@ -18,7 +18,7 @@ import com.example.neutrophil.menus.Pause
 import kotlinx.android.synthetic.main.fragment_over_world.*
 import kotlin.math.abs
 
-class OverWorld(context: Context) : Fragment(), SensorEventListener, BattleListener {
+class OverWorld(context: Context) : Fragment(), SensorEventListener, OverWorldListener {
     private var sensorManager : SensorManager
     private var accelerometer : Sensor
 
@@ -50,7 +50,7 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener, BattleListe
         downArrow.setOnClickListener{ moveDown() }
         leftArrow.setOnClickListener{ moveLeft() }
         rightArrow.setOnClickListener{ moveRight() }
-        gameView.gameLoop.lateInit(this)
+        gameView.gameLoop.overWorldLateInit(this)
         setUpUI()
     }
 
@@ -63,11 +63,11 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener, BattleListe
 
     private fun saveGameLoop() {
         SaveManager.savePlayer(gameView.gameLoop.player)
-        SaveManager.saveEnemies(gameView.gameLoop.enemyManager)
+        SaveManager.saveEnemies(gameView.gameLoop.allEnemies)
         SaveManager.saveTiles(gameView.gameLoop.tileManager)
         SaveManager.saveLoopData(gameView.gameLoop.loopData)
     }
-    
+
     private fun openPause() {
         saveGameLoop()
         val transaction = fragmentManager!!.beginTransaction()
@@ -131,26 +131,26 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener, BattleListe
 
     override fun onPlayerTurn(){
         Handler(Looper.getMainLooper()).postDelayed({
-        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME)
-        diceRoll.visibility = View.VISIBLE
-        upArrow.visibility = View.VISIBLE
-        downArrow.visibility = View.VISIBLE
-        leftArrow.visibility = View.VISIBLE
-        rightArrow.visibility = View.VISIBLE
-        inventoryButton.visibility = View.VISIBLE
-        mapButton.visibility = View.VISIBLE}, 0)
+            sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME)
+            diceRoll.visibility = View.VISIBLE
+            upArrow.visibility = View.VISIBLE
+            downArrow.visibility = View.VISIBLE
+            leftArrow.visibility = View.VISIBLE
+            rightArrow.visibility = View.VISIBLE
+            inventoryButton.visibility = View.VISIBLE
+            mapButton.visibility = View.VISIBLE}, 0)
     }
 
     override fun onEnemyTurn(){
         Handler(Looper.getMainLooper()).postDelayed({
-        sensorManager.unregisterListener(this)
-        diceRoll.visibility = View.INVISIBLE
-        upArrow.visibility = View.INVISIBLE
-        downArrow.visibility = View.INVISIBLE
-        leftArrow.visibility = View.INVISIBLE
-        rightArrow.visibility = View.INVISIBLE
-        inventoryButton.visibility = View.INVISIBLE
-        mapButton.visibility = View.INVISIBLE}, 0)
+            sensorManager.unregisterListener(this)
+            diceRoll.visibility = View.INVISIBLE
+            upArrow.visibility = View.INVISIBLE
+            downArrow.visibility = View.INVISIBLE
+            leftArrow.visibility = View.INVISIBLE
+            rightArrow.visibility = View.INVISIBLE
+            inventoryButton.visibility = View.INVISIBLE
+            mapButton.visibility = View.INVISIBLE}, 0)
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) { }

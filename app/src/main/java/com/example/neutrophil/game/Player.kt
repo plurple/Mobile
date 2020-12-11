@@ -16,6 +16,7 @@ class Player(@Transient private var context : Context){
     var diceSides = 6
     var numDice = 1
     var position = Float2(0.0f, 0.0f)
+    @Transient var abilities = mutableListOf<Ability>()
     @Transient lateinit var image: Bitmap
 
     init {
@@ -24,10 +25,11 @@ class Player(@Transient private var context : Context){
         rollDice()
     }
 
-    fun setUp(con: Context)
+    fun setUp(context: Context)
     {
-        if(context == null) context = con
         image = BitmapFactory.decodeResource(context.resources, R.drawable.player)
+        abilities = mutableListOf<Ability>()
+        addAbility(0)
     }
 
     fun draw(canvas: Canvas) {
@@ -43,11 +45,11 @@ class Player(@Transient private var context : Context){
     }
 
     fun checkForOverlap(enemies: MutableList<Enemy>) : Enemy? {
-            for (enemy in enemies){
-              if(position.x == enemy.position.x && position.y == enemy.position.y){
-                  return enemy
-              }
+        for (enemy in enemies){
+            if(position.x == enemy.position.x && position.y == enemy.position.y){
+                return enemy
             }
+        }
         return null
     }
 
@@ -81,5 +83,27 @@ class Player(@Transient private var context : Context){
             tileOffset.x++
             numberSteps--
         }
+    }
+
+    fun addAbility(type : Int){
+        var ability = Ability()
+        when(type){
+            0 ->{
+                ability.name = "circle"
+            }
+            1 ->{
+                ability.name = "fish"
+                ability.type = EnemyVariety.Virus
+            }
+            2 ->{
+                ability.name = "swirl"
+                ability.type = EnemyVariety.Fungus
+            }
+            3 ->{
+                ability.name = "triangle"
+                ability.type = EnemyVariety.Parasite
+            }
+        }
+        abilities.add(ability)
     }
 }

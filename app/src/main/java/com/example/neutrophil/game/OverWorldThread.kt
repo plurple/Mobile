@@ -18,6 +18,7 @@ class OverWorldThread(private val surfaceHolder: SurfaceHolder, private val over
                 canvas = this.surfaceHolder.lockCanvas()
                 synchronized(surfaceHolder) {
                     this.overWorldView.update()
+                    //TODO work out why there is a null exception here
                     this.overWorldView.draw(canvas!!)
                 }
             } catch (e: Exception) {

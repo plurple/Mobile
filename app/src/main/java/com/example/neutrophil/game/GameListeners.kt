@@ -1,7 +1,11 @@
 package com.example.neutrophil.game
 
-interface BattleListener {
+interface OverWorldListener {
     fun onBattleReady(enemy: Enemy)
     fun onPlayerTurn()
     fun onEnemyTurn()
+}
+
+interface BattleListener{
+    fun battleOver()
 }

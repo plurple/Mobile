@@ -7,6 +7,13 @@ import android.graphics.Canvas
 import android.renderscript.Float2
 import com.example.neutrophil.R
 
+enum class EnemyVariety{
+    Bacteria,
+    Virus,
+    Parasite,
+    Fungus
+}
+
 class Enemy(@Transient var context: Context, var enemyType : Int) {
     var name = "enemy"
     var maxHealth = 100
@@ -15,6 +22,7 @@ class Enemy(@Transient var context: Context, var enemyType : Int) {
     var diceSides = 6
     var numDice = 1
     var position = Float2(0.0f, 0.0f)
+    var variety = EnemyVariety.Bacteria
     @Transient lateinit var image: Bitmap
     var overWorldAI = EnemyOWAI()
 
@@ -40,8 +48,12 @@ class Enemy(@Transient var context: Context, var enemyType : Int) {
         if(numberSteps == 0) return
         overWorldAI.moveEnemy(this)
         numberSteps--
+    }
+
+    fun battleUpdate(player: Player){
 
     }
+
 
     fun setEnemy(context: Context) {
         when(enemyType) {
@@ -50,20 +62,26 @@ class Enemy(@Transient var context: Context, var enemyType : Int) {
             }
             0 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.bean)
+                variety = EnemyVariety.Bacteria
             }
             1 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.cucumber)
+                variety = EnemyVariety.Bacteria
             }
             2 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.green_tadpol)
+                variety = EnemyVariety.Virus
             }
             3 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.handy)
+                variety = EnemyVariety.Fungus
             }
             4 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.jellyfish)
+                variety = EnemyVariety.Parasite
             }
         }
     }
+
 
 }
