@@ -22,10 +22,6 @@ class Tile(@Transient private var context : Context, var tileType: Int) {
             canvas.drawBitmap(image, position.x, position.y, null)
     }
 
-    fun update(){
-        //TODO("check if player and enemy on the same square")
-    }
-
     fun setTile(context: Context) {
         when(tileType) {
             0 -> {

@@ -40,7 +40,6 @@ class OverWorldLoop(var context: Context) : BattleListener{
                 enemyManager.numEnemies--
                 onBattleReady(enemy)
             }
-            tileManager.update()
             if (loopData.enemyTurn) {
                 Thread.sleep(150)
                 if (enemyManager.update()) {

@@ -13,10 +13,6 @@ class TileManager {
         for (tile in tiles) tile.draw(canvas)
     }
 
-    fun update(){
-        for (tile in tiles) tile.update()
-    }
-
     fun setup(context: Context){
         if(tiles.size == 0) {
             for (i in 0..TileGlobals.numHorizontalTiles + 1) {
