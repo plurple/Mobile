@@ -11,9 +11,10 @@ class OverWorldThread(private val surfaceHolder: SurfaceHolder, private val over
     }
 
     override fun run() {
-        while(running){
+        while (running) {
             canvas = null
             try {
+                // locking the canvas allows us to draw on to itKotlinNullPointerException
                 canvas = this.surfaceHolder.lockCanvas()
                 synchronized(surfaceHolder) {
                     this.overWorldView.update()
@@ -22,11 +23,12 @@ class OverWorldThread(private val surfaceHolder: SurfaceHolder, private val over
             } catch (e: Exception) {
                 e.printStackTrace()
             } finally {
-                if (canvas == null) return
-                try {
-                    surfaceHolder.unlockCanvasAndPost(canvas)
-                } catch (e: Exception) {
-                    e.printStackTrace()
+                if (canvas != null) {
+                    try {
+                        surfaceHolder.unlockCanvasAndPost(canvas)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                 }
             }
         }

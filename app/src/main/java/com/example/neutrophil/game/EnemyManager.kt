@@ -11,8 +11,17 @@ class EnemyManager {
         for (enemy in enemies) enemy.draw(canvas)
     }
 
-    fun update(){
-        for (enemy in enemies) enemy.update()
+    fun update() : Boolean{
+        var count = 0
+        for (enemy in enemies) {
+            enemy.update()
+            if(enemy.numberSteps == 0) count++
+        }
+        return count == numEnemies
+    }
+
+    fun rollDice(){
+        for (enemy in enemies) enemy.rollDice()
     }
 
     fun setup(context: Context){

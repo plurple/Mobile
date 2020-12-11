@@ -37,6 +37,7 @@
     <string name="savedTiles">savedTiles</string>
     <string name="savedTile">savedTile</string>
     <string name="enemyImage">enemyImage</string>
+    <string name="savedLoop">savedLoop</string>
 
 
 </resources>

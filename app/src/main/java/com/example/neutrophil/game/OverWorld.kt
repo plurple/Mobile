@@ -6,6 +6,8 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,6 +65,7 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener, BattleListe
         SaveManager.savePlayer(gameView.gameLoop.player)
         SaveManager.saveEnemies(gameView.gameLoop.enemyManager)
         SaveManager.saveTiles(gameView.gameLoop.tileManager)
+        SaveManager.saveLoopData(gameView.gameLoop.loopData)
     }
     
     private fun openPause() {
@@ -91,7 +94,10 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener, BattleListe
 
     private fun rollDice() {
         gameView.gameLoop.player.rollDice()
+        gameView.gameLoop.loopData.playerTurn = true
         setUpUI()
+        diceRoll.visibility = View.INVISIBLE
+        sensorManager.unregisterListener(this)
     }
 
     private fun moveUp() {
@@ -121,6 +127,30 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener, BattleListe
         transaction.replace(R.id.fragmentContainer, Battle())
         transaction.addToBackStack("OpenBattle")
         transaction.commit()
+    }
+
+    override fun onPlayerTurn(){
+        Handler(Looper.getMainLooper()).postDelayed({
+        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME)
+        diceRoll.visibility = View.VISIBLE
+        upArrow.visibility = View.VISIBLE
+        downArrow.visibility = View.VISIBLE
+        leftArrow.visibility = View.VISIBLE
+        rightArrow.visibility = View.VISIBLE
+        inventoryButton.visibility = View.VISIBLE
+        mapButton.visibility = View.VISIBLE}, 0)
+    }
+
+    override fun onEnemyTurn(){
+        Handler(Looper.getMainLooper()).postDelayed({
+        sensorManager.unregisterListener(this)
+        diceRoll.visibility = View.INVISIBLE
+        upArrow.visibility = View.INVISIBLE
+        downArrow.visibility = View.INVISIBLE
+        leftArrow.visibility = View.INVISIBLE
+        rightArrow.visibility = View.INVISIBLE
+        inventoryButton.visibility = View.INVISIBLE
+        mapButton.visibility = View.INVISIBLE}, 0)
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) { }

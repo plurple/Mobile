@@ -16,6 +16,7 @@ class Enemy(@Transient var context: Context, var enemyType : Int) {
     var numDice = 1
     var position = Float2(0.0f, 0.0f)
     @Transient lateinit var image: Bitmap
+    var overWorldAI = EnemyOWAI()
 
     init{
         setEnemy(context)
@@ -36,6 +37,9 @@ class Enemy(@Transient var context: Context, var enemyType : Int) {
     }
 
     fun update(){
+        if(numberSteps == 0) return
+        overWorldAI.moveEnemy(this)
+        numberSteps--
 
     }
 

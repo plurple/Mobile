@@ -89,6 +89,19 @@ object SaveManager{
         return tileManager
     }
 
+    fun saveLoopData(loopData: LoopData){
+        with (sharedPref.edit()) {
+            putString(context.getString(R.string.savedLoop), Gson().toJson(loopData))
+            apply()
+        }
+    }
+
+    fun loadLoopData(): LoopData{
+        val savedLoop = sharedPref.getString(context.getString(R.string.savedLoop), "")
+        if(savedLoop!!.isEmpty()) return LoopData()
+        return Gson().fromJson(savedLoop, LoopData::class.java)
+    }
+
     fun saveSettings(settings : Settings)
     {
         with (sharedPref.edit()) {
@@ -107,6 +120,7 @@ object SaveManager{
     fun clearData() {
         with(sharedPref.edit()) {
             putString(context.getString(R.string.savedPlayer), "")
+            putString(context.getString(R.string.savedLoop), "")
             putString(context.getString(R.string.savedSettings), "")
             putString(context.getString(R.string.savedEnemies), "")
             for(i in 0..100){
