@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#7A5230"
     android:orientation="horizontal"
     tools:context="com.example.neutrophil.game.Battle">
 
@@ -57,10 +57,10 @@
         android:layout_marginStart="20dp"
         android:max="100"
         android:progress="100"
+        android:progressTint="#C21807"
         android:scaleY="4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enemyName"
-        android:progressTint="#C21807"/>
+        app:layout_constraintTop_toBottomOf="@+id/enemyName" />
 
     <TextView
         android:id="@+id/enemyHealthValues"
@@ -91,10 +91,10 @@
         android:layout_marginStart="20dp"
         android:max="100"
         android:progress="100"
+        android:progressTint="#C21807"
         android:scaleY="4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playerName"
-        android:progressTint="#C21807"/>
+        app:layout_constraintTop_toBottomOf="@+id/playerName" />
 
     <TextView
         android:id="@+id/playerHealthValues"
@@ -108,11 +108,14 @@
 
     <android.gesture.GestureOverlayView
         android:id="@+id/atkInput"
-        android:layout_width="570dp"
-        android:layout_height="338dp"
+        android:layout_width="555dp"
+        android:layout_height="311dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-        <com.example.neutrophil.game.OverWorldView
+
+        <com.example.neutrophil.game.BattleView
             android:id="@+id/battleView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -125,14 +128,13 @@
 
     <TextView
         android:id="@+id/information"
-        android:layout_width="425dp"
+        android:layout_width="450dp"
         android:layout_height="50dp"
         android:layout_marginStart="5dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/items"
-        tools:text="Example text to give the player information and instructions"
-        />
+        tools:text="Example text to give the player information and instructions" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -27,8 +27,10 @@
         android:layout_centerInParent="true"
         android:layout_marginStart="255dp"
         android:layout_marginTop="320dp"
+        android:layout_marginEnd="25dp"
         android:background="#D809E6"
         android:text="@string/resume"
+        app:layout_constraintEnd_toStartOf="@+id/saveGame"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,11 +38,13 @@
         android:id="@+id/saveGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="320dp"
         android:layout_marginEnd="150dp"
         android:background="#00EF0A"
         android:text="@string/SaveTittle"
         app:layout_constraintEnd_toStartOf="@+id/settings"
+        app:layout_constraintStart_toEndOf="@+id/resume"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button

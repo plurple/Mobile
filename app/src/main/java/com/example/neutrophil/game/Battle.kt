@@ -40,26 +40,26 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener, Batt
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        battleView.gameLoop.battleLateInit(this)
+        battleView.battleLoop.battleLateInit(this)
         setUI()
         retreatButton.setOnClickListener { retreat() }
         atkInput.addOnGesturePerformedListener(this)
     }
 
     private fun retreat() {
-        SaveManager.savePlayer(battleView.gameLoop.player)
+        SaveManager.savePlayer(battleView.battleLoop.player)
         fragmentManager!!.popBackStack()
     }
 
     private fun setUI()
     {
         Handler(Looper.getMainLooper()).postDelayed({
-        playerHealth.max = battleView.gameLoop.player.maxHealth
-        playerHealth.progress = battleView.gameLoop.player.health
+        playerHealth.max = battleView.battleLoop.player.maxHealth
+        playerHealth.progress = battleView.battleLoop.player.health
         playerHealthValues.text = playerHealth.progress.toString() + "/" + playerHealth.max.toString()
-        enemyName.text = battleView.gameLoop.battleEnemy.name
-        enemyHealth.max = battleView.gameLoop.battleEnemy.maxHealth
-        enemyHealth.progress = battleView.gameLoop.battleEnemy.health
+        enemyName.text = battleView.battleLoop.battleEnemy.name
+        enemyHealth.max = battleView.battleLoop.battleEnemy.maxHealth
+        enemyHealth.progress = battleView.battleLoop.battleEnemy.health
         enemyHealthValues.text = enemyHealth.progress.toString() + "/" + enemyHealth.max.toString()},0)
     }
 
@@ -69,16 +69,16 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener, Batt
         predictions?.let {
             if (it.size > 0 && it[0].score > 1.0) {
                 val action = it[0].name
-                for(ability in battleView.gameLoop.player.abilities)
+                for(ability in battleView.battleLoop.player.abilities)
                 {
                     if(ability.name == action) {
-                        if(ability.type == battleView.gameLoop.battleEnemy.variety)
-                            battleView.gameLoop.battleEnemy.modifyHealth(ability.damage*2)
+                        if(ability.type == battleView.battleLoop.battleEnemy.variety)
+                            battleView.battleLoop.battleEnemy.modifyHealth(ability.damage*2)
                         else
-                            battleView.gameLoop.battleEnemy.modifyHealth(ability.damage)
+                            battleView.battleLoop.battleEnemy.modifyHealth(ability.damage)
                     }
-                    battleView.gameLoop.loopData.enemyTurn = true
-                    battleView.gameLoop.loopData.playerTurn = false
+                    battleView.battleLoop.loopData.enemyTurn = true
+                    battleView.battleLoop.loopData.playerTurn = false
                     setUI()
                 }
             }
@@ -86,13 +86,14 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener, Batt
     }
 
     override fun battleOver() {
-        SaveManager.savePlayer(battleView.gameLoop.player)
+        SaveManager.savePlayer(battleView.battleLoop.player)
         fragmentManager!!.popBackStack()
     }
     override fun onDeath(){
+        Handler(Looper.getMainLooper()).postDelayed({
         val transaction = fragmentManager!!.beginTransaction()
         transaction.replace(R.id.fragmentContainer, Death())
-        transaction.commit()
+        transaction.commit()},0)
     }
 
     override fun onEnemyTurnEnd() {

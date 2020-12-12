@@ -4,20 +4,14 @@ import android.content.Context
 import android.graphics.Canvas
 import com.example.neutrophil.SaveManager
 
-class LoopData(){
-    var playerTurn = true
-    var enemyTurn = false
-    var battle = false
-}
 
-class OverWorldLoop(var context: Context) : OverWorldListener, BattleListener {
+
+class OverWorldLoop(var context: Context) : OverWorldListener {
     var player = Player(context)
     var tileManager = TileManager()
     var allEnemies = EnemyManager()
-    var battleEnemy = Enemy(context, 0)
     var loopData = LoopData()
     private lateinit var overWorldListener : OverWorldListener
-    private lateinit var battleListener : BattleListener
 
     fun overWorldLateInit(owListener: OverWorldListener) {
         tileManager = SaveManager.loadTiles()
@@ -31,14 +25,7 @@ class OverWorldLoop(var context: Context) : OverWorldListener, BattleListener {
         overWorldListener = owListener
     }
 
-    fun battleLateInit(bListener : BattleListener){
-        player = SaveManager.loadPlayer()
-        player.setUp(context)
-        battleEnemy = SaveManager.loadEnemy()
-        battleEnemy.setEnemy(context)
-        loopData.battle = true
-        battleListener = bListener
-    }
+
 
     fun update() {
         if(!loopData.battle) {
@@ -58,31 +45,12 @@ class OverWorldLoop(var context: Context) : OverWorldListener, BattleListener {
                 }
             }
         }
-        else{
-            if(loopData.enemyTurn && battleEnemy.health != 0){
-                battleEnemy.battleUpdate(player)
-                loopData.enemyTurn = false
-                loopData.playerTurn = true
-                if(player.health == 0){
-                    onDeath()
-                }
-                else{
-                    onEnemyTurnEnd()
-                }
-            }
-            else {
-                if(battleEnemy.health == 0)
-                    battleOver()
-            }
-        }
     }
 
     fun draw(canvas: Canvas) {
-        if(!loopData.battle) {
-            tileManager.draw(canvas)
-            player.draw(canvas)
-            allEnemies.draw(canvas)
-        }
+        tileManager.draw(canvas)
+        player.draw(canvas)
+        allEnemies.draw(canvas)
     }
 
     override fun onBattleReady(enemy: Enemy) {
@@ -100,17 +68,5 @@ class OverWorldLoop(var context: Context) : OverWorldListener, BattleListener {
         loopData.playerTurn = false
         loopData.enemyTurn = true
         overWorldListener.onEnemyTurn()
-    }
-
-    override fun battleOver(){
-        battleListener.battleOver()
-    }
-
-    override fun onDeath(){
-        battleListener.onDeath()
-    }
-
-    override fun onEnemyTurnEnd(){
-        battleListener.onEnemyTurnEnd()
     }
 }
