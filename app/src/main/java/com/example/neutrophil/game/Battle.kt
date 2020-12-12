@@ -5,6 +5,8 @@ import android.gesture.GestureLibraries
 import android.gesture.GestureLibrary
 import android.gesture.GestureOverlayView
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,13 +53,14 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener, Batt
 
     private fun setUI()
     {
+        Handler(Looper.getMainLooper()).postDelayed({
         playerHealth.max = battleView.gameLoop.player.maxHealth
         playerHealth.progress = battleView.gameLoop.player.health
         playerHealthValues.text = playerHealth.progress.toString() + "/" + playerHealth.max.toString()
         enemyName.text = battleView.gameLoop.battleEnemy.name
         enemyHealth.max = battleView.gameLoop.battleEnemy.maxHealth
         enemyHealth.progress = battleView.gameLoop.battleEnemy.health
-        enemyHealthValues.text = enemyHealth.progress.toString() + "/" + enemyHealth.max.toString()
+        enemyHealthValues.text = enemyHealth.progress.toString() + "/" + enemyHealth.max.toString()},0)
     }
 
     override fun onGesturePerformed(overlay: GestureOverlayView?, gesture: Gesture?) {
