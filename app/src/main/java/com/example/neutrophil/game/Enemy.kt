@@ -23,6 +23,7 @@ class Enemy(@Transient var context: Context, var enemyType : Int) {
     var numDice = 1
     var position = Float2(0.0f, 0.0f)
     var variety = EnemyVariety.Bacteria
+    var damage = -5
     @Transient lateinit var image: Bitmap
     var overWorldAI = EnemyOWAI()
 
@@ -51,7 +52,7 @@ class Enemy(@Transient var context: Context, var enemyType : Int) {
     }
 
     fun battleUpdate(player: Player){
-
+        player.modifyHealth(damage)
     }
 
 

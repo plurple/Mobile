@@ -8,4 +8,6 @@ interface OverWorldListener {
 
 interface BattleListener{
     fun battleOver()
+    fun onDeath()
+    fun onEnemyTurnEnd()
 }

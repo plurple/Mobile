@@ -74,6 +74,8 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener, Batt
                         else
                             battleView.gameLoop.battleEnemy.modifyHealth(ability.damage)
                     }
+                    battleView.gameLoop.loopData.enemyTurn = true
+                    battleView.gameLoop.loopData.playerTurn = false
                     setUI()
                 }
             }
@@ -83,5 +85,14 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener, Batt
     override fun battleOver() {
         SaveManager.savePlayer(battleView.gameLoop.player)
         fragmentManager!!.popBackStack()
+    }
+    override fun onDeath(){
+        val transaction = fragmentManager!!.beginTransaction()
+        transaction.replace(R.id.fragmentContainer, Death())
+        transaction.commit()
+    }
+
+    override fun onEnemyTurnEnd() {
+        setUI()
     }
 }

@@ -36,7 +36,7 @@ class OverWorldLoop(var context: Context) : OverWorldListener, BattleListener {
         player.setUp(context)
         battleEnemy = SaveManager.loadEnemy()
         battleEnemy.setEnemy(context)
-        loopData = SaveManager.loadLoopData()
+        loopData.battle = true
         battleListener = bListener
     }
 
@@ -52,15 +52,27 @@ class OverWorldLoop(var context: Context) : OverWorldListener, BattleListener {
                 onBattleReady(enemy)
             }
             if (loopData.enemyTurn) {
-                Thread.sleep(150)
+                Thread.sleep(250)
                 if (allEnemies.update()) {
                     onPlayerTurn()
                 }
             }
         }
         else{
-            if(loopData.enemyTurn){
+            if(loopData.enemyTurn && battleEnemy.health != 0){
                 battleEnemy.battleUpdate(player)
+                loopData.enemyTurn = false
+                loopData.playerTurn = true
+                if(player.health == 0){
+                    onDeath()
+                }
+                else{
+                    onEnemyTurnEnd()
+                }
+            }
+            else {
+                if(battleEnemy.health == 0)
+                    battleOver()
             }
         }
     }
@@ -91,6 +103,14 @@ class OverWorldLoop(var context: Context) : OverWorldListener, BattleListener {
     }
 
     override fun battleOver(){
+        battleListener.battleOver()
+    }
 
+    override fun onDeath(){
+        battleListener.onDeath()
+    }
+
+    override fun onEnemyTurnEnd(){
+        battleListener.onEnemyTurnEnd()
     }
 }

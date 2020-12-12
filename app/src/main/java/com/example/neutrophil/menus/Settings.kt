@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.neutrophil.R
-import com.example.neutrophil.SaveManager
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 class Settings () : Fragment() {
@@ -30,7 +29,7 @@ class Settings () : Fragment() {
     }
 
     private fun closeSettings() {
-        SaveManager.saveSettings(this)
+        //SaveManager.saveSettings(this)
         fragmentManager!!.popBackStack()
     }
 }
