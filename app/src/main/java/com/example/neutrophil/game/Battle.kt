@@ -18,6 +18,7 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener {
     private var gLibrary: GestureLibrary? = null
     lateinit var player: Player
     lateinit var battleEnemy : Enemy
+    var playerTurn = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,9 +55,17 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener {
 
     private fun setUI()
     {
+        setPlayerUI()
+        setEnemyUI()
+    }
+
+    fun setPlayerUI(){
         playerHealth.max = player.maxHealth
         playerHealth.progress = player.health
         playerHealthValues.text = playerHealth.progress.toString() + "/" + playerHealth.max.toString()
+    }
+
+    fun setEnemyUI(){
         enemyName.text = battleEnemy.name
         enemyHealth.max = battleEnemy.maxHealth
         enemyHealth.progress = battleEnemy.health
@@ -71,17 +80,19 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener {
                 val action = it[0].name
                 for(ability in player.abilities)
                 {
-                    if(ability.name == action) {
+                    if(ability.name == action && playerTurn) {
                         if(ability.type == battleEnemy.variety)
                             battleEnemy.modifyHealth(ability.damage*2)
                         else
                             battleEnemy.modifyHealth(ability.damage)
+                        playerTurn = false
                     }
-                    setUI()
-                    onEnemyTurn()
+                    setEnemyUI()
                 }
             }
         }
+        onEnemyTurn()
+        playerTurn = true
     }
 
     fun battleOver() {
@@ -95,16 +106,16 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener {
     }
 
     fun onEnemyTurn() {
-
-        if(battleEnemy.health != 0){
-            battleEnemy.battleUpdate(player)
-            if(player.health == 0){
-                onDeath()
+        if(!playerTurn) {
+            if (battleEnemy.health != 0) {
+                battleEnemy.battleUpdate(player)
+                if (player.health == 0) {
+                    onDeath()
+                }
+                setPlayerUI()
+            } else {
+                battleOver()
             }
-            setUI()
-        }
-        else {
-            battleOver()
         }
     }
 }

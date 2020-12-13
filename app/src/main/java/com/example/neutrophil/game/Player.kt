@@ -17,7 +17,8 @@ class Player(@Transient private var context : Context){
     var numDice = 1
     var position = Float2(0.0f, 0.0f)
     var battlePosition = Float2(575.0f, 600.0f)
-    @Transient var abilities = mutableListOf<Ability>()
+    @Transient var abilities = mutableListOf<Ability>(Ability())
+    var numAbilities = 1
     @Transient lateinit var image: Bitmap
 
     init {
@@ -29,8 +30,7 @@ class Player(@Transient private var context : Context){
     fun setUp(context: Context)
     {
         image = BitmapFactory.decodeResource(context.resources, R.drawable.player)
-        abilities = mutableListOf<Ability>()
-        addAbility(0)
+        abilities = mutableListOf<Ability>(Ability())
     }
 
     fun draw(canvas: Canvas) {
@@ -89,9 +89,6 @@ class Player(@Transient private var context : Context){
     fun addAbility(type : Int){
         var ability = Ability()
         when(type){
-            0 ->{
-                ability.name = "circle"
-            }
             1 ->{
                 ability.name = "fish"
                 ability.type = EnemyVariety.Virus
@@ -106,6 +103,7 @@ class Player(@Transient private var context : Context){
             }
         }
         abilities.add(ability)
+        numAbilities++
     }
 
     fun modifyHealth(damage : Int){

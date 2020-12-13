@@ -18,6 +18,9 @@ object SaveManager{
     fun savePlayer(player : Player) {
         with (sharedPref.edit()) {
             putString(context.getString(R.string.savedPlayer), Gson().toJson(player))
+            for((count, ability) in player.abilities.withIndex()){
+                putString(context.getString(R.string.savedAbility) + count, Gson().toJson(ability))
+            }
             apply()
         }
     }
@@ -27,6 +30,12 @@ object SaveManager{
         if(savedPlayer!!.isEmpty()) return Player(context)
         var player =  Gson().fromJson(savedPlayer, Player::class.java)
         player.setUp(context)
+        for(i in 0 until player.numAbilities)
+        {
+            val savedAbility = sharedPref.getString(context.getString(R.string.savedAbility)+i, "")
+            val ability = Gson().fromJson(savedAbility, Ability::class.java)
+            player.abilities.add(ability)
+        }
         return player
     }
 
