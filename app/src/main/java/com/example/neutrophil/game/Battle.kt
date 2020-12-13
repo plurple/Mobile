@@ -30,7 +30,6 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener {
         }
     }
 
-    //TODO("get the battle stuff working recognising the gestures that are unlocked and stuff")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?
     ): View? {
@@ -45,7 +44,8 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener {
         setUI()
         retreatButton.setOnClickListener { retreat() }
         atkInput.addOnGesturePerformedListener(this)
-
+        playerImage.setImageBitmap(player.image)
+        enemyImage.setImageBitmap(battleEnemy.image)
     }
 
     private fun retreat() {

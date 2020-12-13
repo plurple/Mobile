@@ -41,6 +41,7 @@
     <string name="savedMusic">savedMusic</string>
     <string name="savedSounds">savedSounds</string>
     <string name="GameOver">Game Over</string>
+    <string name="playerImage">playerImage</string>
 
 
 </resources>

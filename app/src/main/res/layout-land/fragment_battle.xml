@@ -131,7 +131,44 @@
         app:layout_constraintBottom_toTopOf="@+id/information"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/playerName"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/playerImage"
+                android:layout_width="wrap_content"
+                android:layout_height="63dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginBottom="20dp"
+                android:contentDescription="@string/playerImage"
+                android:src="@drawable/player"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/enemyImage"
+                tools:layout_conversion_absoluteHeight="63dp"
+                tools:layout_conversion_absoluteWidth="63dp" />
+
+            <ImageView
+                android:id="@+id/enemyImage"
+                android:layout_width="wrap_content"
+                android:layout_height="64dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="80dp"
+                android:contentDescription="@string/enemyImage"
+                android:src="@drawable/bean"
+                app:layout_constraintBottom_toTopOf="@+id/playerImage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_conversion_absoluteHeight="64dp"
+                tools:layout_conversion_absoluteWidth="62dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </android.gesture.GestureOverlayView>
 
     <TextView
         android:id="@+id/information"
