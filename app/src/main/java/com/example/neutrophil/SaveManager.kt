@@ -3,7 +3,6 @@ package com.example.neutrophil
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.neutrophil.game.*
-import com.example.neutrophil.menus.Settings
 import com.google.gson.Gson
 
 object SaveManager{
@@ -113,26 +112,25 @@ object SaveManager{
         return Gson().fromJson(savedLoop, LoopData::class.java)
     }
 
-    fun saveSettings(settings : Settings)
+    fun saveSettings()
     {
         with (sharedPref.edit()) {
-            putString(context.getString(R.string.savedSettings), Gson().toJson(settings))
+            putFloat(context.getString(R.string.savedMusic), SoundManager.musicLevel)
+            putFloat(context.getString(R.string.savedSounds), SoundManager.soundsLevel)
             apply()
         }
     }
 
-    fun loadSettings() : Settings
+    fun loadSettings()
     {
-        val savedSetings = sharedPref.getString(context.getString(R.string.savedSettings), "")
-        if(savedSetings!!.isEmpty()) return Settings()
-        return Gson().fromJson(savedSetings, Settings::class.java)
+        SoundManager.musicLevel = sharedPref.getFloat(context.getString(R.string.savedMusic), 0.5f)
+        SoundManager.soundsLevel = sharedPref.getFloat(context.getString(R.string.savedSounds), 0.5f)
     }
 
     fun clearData() {
         with(sharedPref.edit()) {
             putString(context.getString(R.string.savedPlayer), "")
             putString(context.getString(R.string.savedLoop), "")
-            putString(context.getString(R.string.savedSettings), "")
             putString(context.getString(R.string.savedEnemies), "")
             for(i in 0..100){
                 putString(context.getString(R.string.savedEnemy)+i, "")

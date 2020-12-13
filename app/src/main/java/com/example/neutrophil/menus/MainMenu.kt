@@ -41,8 +41,7 @@ class MainMenu : Fragment() {
     private fun openLoadGame() {
         if(popup.visibility == View.INVISIBLE) {
             val transaction = fragmentManager!!.beginTransaction()
-            transaction.replace(R.id.fragmentContainer, SaveLoad())
-            transaction.addToBackStack("openLoadGame")
+            transaction.replace(R.id.fragmentContainer, OverWorld(context!!))
             transaction.commit()
         }
     }

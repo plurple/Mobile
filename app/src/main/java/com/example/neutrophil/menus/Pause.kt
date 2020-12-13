@@ -25,7 +25,6 @@ class Pause : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         settings.setOnClickListener{ openSettings() }
         resume.setOnClickListener { closePause() }
-        saveGame.setOnClickListener { saveGame() }
     }
 
 
@@ -42,7 +41,4 @@ class Pause : Fragment() {
         transaction.commit()
     }
 
-    private fun saveGame() {
-        //TODO: set up the saving of the game here.
-    }
 }
