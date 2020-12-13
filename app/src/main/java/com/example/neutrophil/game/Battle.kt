@@ -5,8 +5,6 @@ import android.gesture.GestureLibraries
 import android.gesture.GestureLibrary
 import android.gesture.GestureOverlayView
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,9 +14,10 @@ import com.example.neutrophil.SaveManager
 import kotlinx.android.synthetic.main.fragment_battle.*
 
 
-class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener, BattleListener {
+class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener {
     private var gLibrary: GestureLibrary? = null
-
+    lateinit var player: Player
+    lateinit var battleEnemy : Enemy
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,27 +39,28 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener, Batt
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        battleView.battleLoop.battleLateInit(this)
+        player = SaveManager.loadPlayer()
+        battleEnemy = SaveManager.loadEnemy()
         setUI()
         retreatButton.setOnClickListener { retreat() }
         atkInput.addOnGesturePerformedListener(this)
+
     }
 
     private fun retreat() {
-        SaveManager.savePlayer(battleView.battleLoop.player)
+        SaveManager.savePlayer(player)
         fragmentManager!!.popBackStack()
     }
 
     private fun setUI()
     {
-        Handler(Looper.getMainLooper()).postDelayed({
-        playerHealth.max = battleView.battleLoop.player.maxHealth
-        playerHealth.progress = battleView.battleLoop.player.health
+        playerHealth.max = player.maxHealth
+        playerHealth.progress = player.health
         playerHealthValues.text = playerHealth.progress.toString() + "/" + playerHealth.max.toString()
-        enemyName.text = battleView.battleLoop.battleEnemy.name
-        enemyHealth.max = battleView.battleLoop.battleEnemy.maxHealth
-        enemyHealth.progress = battleView.battleLoop.battleEnemy.health
-        enemyHealthValues.text = enemyHealth.progress.toString() + "/" + enemyHealth.max.toString()},0)
+        enemyName.text = battleEnemy.name
+        enemyHealth.max = battleEnemy.maxHealth
+        enemyHealth.progress = battleEnemy.health
+        enemyHealthValues.text = enemyHealth.progress.toString() + "/" + enemyHealth.max.toString()
     }
 
     override fun onGesturePerformed(overlay: GestureOverlayView?, gesture: Gesture?) {
@@ -69,34 +69,42 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener, Batt
         predictions?.let {
             if (it.size > 0 && it[0].score > 1.0) {
                 val action = it[0].name
-                for(ability in battleView.battleLoop.player.abilities)
+                for(ability in player.abilities)
                 {
                     if(ability.name == action) {
-                        if(ability.type == battleView.battleLoop.battleEnemy.variety)
-                            battleView.battleLoop.battleEnemy.modifyHealth(ability.damage*2)
+                        if(ability.type == battleEnemy.variety)
+                            battleEnemy.modifyHealth(ability.damage*2)
                         else
-                            battleView.battleLoop.battleEnemy.modifyHealth(ability.damage)
+                            battleEnemy.modifyHealth(ability.damage)
                     }
-                    battleView.battleLoop.loopData.enemyTurn = true
-                    battleView.battleLoop.loopData.playerTurn = false
                     setUI()
+                    onEnemyTurn()
                 }
             }
         }
     }
 
-    override fun battleOver() {
-        SaveManager.savePlayer(battleView.battleLoop.player)
+    fun battleOver() {
+        SaveManager.savePlayer(player)
         fragmentManager!!.popBackStack()
     }
-    override fun onDeath(){
-        Handler(Looper.getMainLooper()).postDelayed({
+    fun onDeath(){
         val transaction = fragmentManager!!.beginTransaction()
         transaction.replace(R.id.fragmentContainer, Death())
-        transaction.commit()},0)
+        transaction.commit()
     }
 
-    override fun onEnemyTurnEnd() {
-        setUI()
+    fun onEnemyTurn() {
+
+        if(battleEnemy.health != 0){
+            battleEnemy.battleUpdate(player)
+            if(player.health == 0){
+                onDeath()
+            }
+            setUI()
+        }
+        else {
+            battleOver()
+        }
     }
 }

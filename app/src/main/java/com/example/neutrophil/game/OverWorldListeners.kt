@@ -11,9 +11,3 @@ interface OverWorldListener {
     fun onPlayerTurn()
     fun onEnemyTurn()
 }
-
-interface BattleListener{
-    fun battleOver()
-    fun onDeath()
-    fun onEnemyTurnEnd()
-}

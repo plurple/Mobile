@@ -25,8 +25,6 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
         overWorldListener = owListener
     }
 
-
-
     fun update() {
         if(!loopData.battle) {
             if (player.numberSteps == 0 && loopData.playerTurn) {
