@@ -6,6 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.neutrophil.R
+import com.example.neutrophil.SaveManager
+import com.example.neutrophil.menus.Credits
+import com.example.neutrophil.menus.Settings
+import kotlinx.android.synthetic.main.fragment_main_menu.*
+import kotlin.system.exitProcess
 
 class Death : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,5 +26,34 @@ class Death : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        newGame.setOnClickListener{ startNewGame() }
+        settings.setOnClickListener{ openSettings() }
+        credits.setOnClickListener{ openCredits() }
+        close.setOnClickListener{ closeGame() }
+    }
+
+    private fun openSettings() {
+        val transaction = fragmentManager!!.beginTransaction()
+        transaction.replace(R.id.fragmentContainer, Settings())
+        transaction.addToBackStack("OpenSettings")
+        transaction.commit()
+    }
+
+    private fun openCredits() {
+        val transaction = fragmentManager!!.beginTransaction()
+        transaction.replace(R.id.fragmentContainer, Credits())
+        transaction.addToBackStack("OpenCredits")
+        transaction.commit()
+    }
+
+    private fun closeGame() {
+        exitProcess(0)
+    }
+
+    private fun startNewGame() {
+        SaveManager.clearData()
+        val transaction = fragmentManager!!.beginTransaction()
+        transaction.replace(R.id.fragmentContainer, OverWorld(context!!))
+        transaction.commit()
     }
 }

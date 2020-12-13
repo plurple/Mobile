@@ -34,5 +34,6 @@ class MainActivity : AppCompatActivity() {
 
 
         SaveManager.loadSettings()
+        SoundManager.playMusic(this, R.raw.lull)
     }
 }

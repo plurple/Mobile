@@ -100,6 +100,7 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener {
         fragmentManager!!.popBackStack()
     }
     fun onDeath(){
+        SaveManager.savePlayer(player)
         val transaction = fragmentManager!!.beginTransaction()
         transaction.replace(R.id.fragmentContainer, Death())
         transaction.commit()

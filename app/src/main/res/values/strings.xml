@@ -40,6 +40,7 @@
     <string name="savedAbility">savedAbility</string>
     <string name="savedMusic">savedMusic</string>
     <string name="savedSounds">savedSounds</string>
+    <string name="GameOver">Game Over</string>
 
 
 </resources>
