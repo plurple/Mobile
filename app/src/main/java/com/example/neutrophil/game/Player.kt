@@ -16,7 +16,7 @@ class Player(@Transient private var context : Context){
     var diceSides = 6
     var numDice = 1
     var position = Float2(0.0f, 0.0f)
-    var battlePosition = Float2(200.0f, 200.0f)
+    var battlePosition = Float2(575.0f, 600.0f)
     @Transient var abilities = mutableListOf<Ability>()
     @Transient lateinit var image: Bitmap
 

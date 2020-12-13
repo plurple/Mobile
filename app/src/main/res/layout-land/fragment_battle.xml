@@ -10,41 +10,49 @@
 
     <Button
         android:id="@+id/retreatButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="88dp"
+        android:layout_height="48dp"
         android:layout_marginStart="20dp"
+        android:layout_marginEnd="6dp"
         android:layout_marginBottom="20dp"
         android:text="@string/retreat"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/atkInfo"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/atkInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="88dp"
+        android:layout_height="48dp"
         android:layout_marginStart="6dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginBottom="20dp"
         android:text="@string/attacks"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/items"
         app:layout_constraintStart_toEndOf="@+id/retreatButton" />
 
     <Button
         android:id="@+id/items"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="88dp"
+        android:layout_height="48dp"
         android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginBottom="20dp"
         android:text="@string/items"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/information"
         app:layout_constraintStart_toEndOf="@+id/atkInfo" />
 
     <TextView
         android:id="@+id/enemyName"
         android:layout_width="125dp"
-        android:layout_height="25dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/enemyHealth"
+        app:layout_constraintEnd_toStartOf="@+id/atkInput"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Enemy Type" />
@@ -55,10 +63,13 @@
         android:layout_width="125dp"
         android:layout_height="40dp"
         android:layout_marginStart="20dp"
+        android:layout_marginBottom="50dp"
         android:max="100"
         android:progress="100"
         android:progressTint="#C21807"
         android:scaleY="4"
+        app:layout_constraintBottom_toTopOf="@+id/playerName"
+        app:layout_constraintEnd_toStartOf="@+id/atkInput"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enemyName" />
 
@@ -77,9 +88,11 @@
         android:layout_width="125sp"
         android:layout_height="25dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="50dp"
         android:text="@string/neutrophil"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/playerHealth"
+        app:layout_constraintEnd_toStartOf="@+id/atkInput"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enemyHealth" />
 
@@ -93,6 +106,8 @@
         android:progress="100"
         android:progressTint="#C21807"
         android:scaleY="4"
+        app:layout_constraintBottom_toTopOf="@+id/retreatButton"
+        app:layout_constraintEnd_toStartOf="@+id/atkInput"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/playerName" />
 
@@ -108,11 +123,13 @@
 
     <android.gesture.GestureOverlayView
         android:id="@+id/atkInput"
-        android:layout_width="555dp"
-        android:layout_height="311dp"
-        android:layout_marginTop="15dp"
+        android:layout_width="500dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/information"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/playerName"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.example.neutrophil.game.BattleView
@@ -131,9 +148,13 @@
         android:layout_width="450dp"
         android:layout_height="50dp"
         android:layout_marginStart="5dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="13dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/items"
+        app:layout_constraintTop_toBottomOf="@+id/atkInput"
         tools:text="Example text to give the player information and instructions" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
