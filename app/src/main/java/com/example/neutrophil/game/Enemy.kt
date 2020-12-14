@@ -22,11 +22,13 @@ class Enemy(@Transient var context: Context, var enemyType : Int) {
     var diceSides = 6
     var numDice = 1
     var position = Float2(0.0f, 0.0f)
-    var battlePosition = Float2(575.0f, 20.0f)
     var variety = EnemyVariety.Bacteria
     var damage = -5
+    var onScreen = true
     @Transient lateinit var image: Bitmap
     var overWorldAI = EnemyOWAI()
+    var directions : List<Boolean> = listOf(true, true, true, true)
+
 
     init{
         setEnemy(context)
@@ -35,7 +37,8 @@ class Enemy(@Transient var context: Context, var enemyType : Int) {
     }
 
     fun draw(canvas: Canvas) {
-        canvas.drawBitmap(image, position.x, position.y,null )
+        if(onScreen)
+            canvas.drawBitmap(image, position.x, position.y,null )
     }
 
     fun rollDice(){
@@ -50,16 +53,14 @@ class Enemy(@Transient var context: Context, var enemyType : Int) {
         if(numberSteps == 0) return
         overWorldAI.moveEnemy(this)
         numberSteps--
+        onScreen = (position.x >=0.0f && position.x <= TileGlobals.tileSize * TileGlobals.numHorizontalTiles &&
+                position.y >= 0.0f && position.y <= TileGlobals.tileSize * TileGlobals.numVerticalTiles)
+
     }
 
     fun battleUpdate(player: Player){
         player.modifyHealth(damage)
     }
-
-    fun battleDraw(canvas: Canvas){
-        canvas.drawBitmap(image, battlePosition.x, battlePosition.y,null )
-    }
-
 
     fun setEnemy(context: Context) {
         when(enemyType) {

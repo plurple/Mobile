@@ -42,6 +42,7 @@
     <string name="savedSounds">savedSounds</string>
     <string name="GameOver">Game Over</string>
     <string name="playerImage">playerImage</string>
+    <string name="MusicBy">Music by Dylan Senderling</string>
 
 
 </resources>

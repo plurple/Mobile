@@ -2,6 +2,8 @@ package com.example.neutrophil.game
 
 import android.content.Context
 import android.graphics.Canvas
+import android.renderscript.Float2
+import android.renderscript.Int2
 import com.example.neutrophil.SaveManager
 
 
@@ -20,6 +22,8 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
         allEnemies.setup(context)
         player = SaveManager.loadPlayer()
         player.setUp(context)
+        player.directions = tileManager.getTileDirections(player.position)
+        for(enemy in allEnemies.enemies) enemy.directions = tileManager.getTileDirections(enemy.position)
         loopData = SaveManager.loadLoopData()
         loopData.battle = false
         overWorldListener = owListener
@@ -27,6 +31,9 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
 
     fun update() {
         if(!loopData.battle) {
+            if(player.position.x < 0.0f || player.position.x > TileGlobals.tileSize * TileGlobals.numHorizontalTiles ||
+                player.position.y < 0.0f || player.position.y > TileGlobals.tileSize * TileGlobals.numVerticalTiles)
+                recenterPlayer()
             if (player.numberSteps == 0 && loopData.playerTurn) {
                 onEnemyTurn()
             }
@@ -36,9 +43,10 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
                 allEnemies.numEnemies--
                 onBattleReady(enemy)
             }
+            tileManager.update()
             if (loopData.enemyTurn) {
                 Thread.sleep(250)
-                if (allEnemies.update()) {
+                if (allEnemies.update(tileManager)) {
                     onPlayerTurn()
                 }
             }
@@ -49,6 +57,14 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
         tileManager.draw(canvas)
         player.draw(canvas)
         allEnemies.draw(canvas)
+    }
+
+    fun recenterPlayer(){
+        var adjustment = Float2(player.tileOffset.x * TileGlobals.tileSize, player.tileOffset.y * TileGlobals.tileSize)
+        player.position -= adjustment
+        for(tile in tileManager.tiles) tile.position -= adjustment
+        for(enemy in allEnemies.enemies) enemy.position -= adjustment
+        player.tileOffset = Int2(0, 0)
     }
 
     override fun onBattleReady(enemy: Enemy) {
@@ -67,4 +83,9 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
         loopData.enemyTurn = true
         overWorldListener.onEnemyTurn()
     }
+}
+
+private operator fun Float2.minusAssign(other: Float2) {
+    this.x -= other.x
+    this.y -= other.y
 }

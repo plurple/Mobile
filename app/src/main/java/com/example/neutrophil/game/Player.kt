@@ -16,10 +16,10 @@ class Player(@Transient private var context : Context){
     var diceSides = 6
     var numDice = 1
     var position = Float2(0.0f, 0.0f)
-    var battlePosition = Float2(575.0f, 600.0f)
     @Transient var abilities = mutableListOf<Ability>(Ability())
     var numAbilities = 1
     @Transient lateinit var image: Bitmap
+    var directions : List<Boolean> = listOf(true, true, true, true)
 
     init {
         position = Float2(TileGlobals.tileSize * (TileGlobals.numHorizontalTiles/2), TileGlobals.tileSize*(TileGlobals.numVerticalTiles/2))
@@ -112,9 +112,5 @@ class Player(@Transient private var context : Context){
             health = 0
         if(health > maxHealth)
             health = maxHealth
-    }
-
-    fun battleDraw(canvas: Canvas){
-        canvas.drawBitmap(image, battlePosition.x, battlePosition.y,null )
     }
 }

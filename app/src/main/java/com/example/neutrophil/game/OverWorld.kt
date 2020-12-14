@@ -44,7 +44,6 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener, OverWorldLi
         super.onViewCreated(view, savedInstanceState)
         pauseButton.setOnClickListener{ openPause() }
         inventoryButton.setOnClickListener{ openInventory() }
-        mapButton.setOnClickListener{ openMap() }
         diceRoll.setOnClickListener{ rollDice() }
         upArrow.setOnClickListener{ moveUp() }
         downArrow.setOnClickListener{ moveDown() }
@@ -59,6 +58,16 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener, OverWorldLi
         healthBar.progress = gameView.gameLoop.player.health
         healthValue.text = healthBar.progress.toString() + "/" + healthBar.max.toString()
         numMoves.text = gameView.gameLoop.player.numberSteps.toString()
+        if(gameView.gameLoop.player.directions[0]) upArrow.visibility = View.VISIBLE
+        else upArrow.visibility = View.INVISIBLE
+        if(gameView.gameLoop.player.directions[1]) rightArrow.visibility = View.VISIBLE
+        else rightArrow.visibility = View.INVISIBLE
+        if(gameView.gameLoop.player.directions[2]) downArrow.visibility = View.VISIBLE
+        else downArrow.visibility = View.INVISIBLE
+        if(gameView.gameLoop.player.directions[3]) leftArrow.visibility = View.VISIBLE
+        else leftArrow.visibility = View.INVISIBLE
+        if(gameView.gameLoop.player.numberSteps != 0) diceRoll.visibility = View.INVISIBLE
+        else diceRoll.visibility = View.VISIBLE
     }
 
     private fun saveGameLoop() {
@@ -84,14 +93,6 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener, OverWorldLi
         transaction.commit()
     }
 
-    private fun openMap() {
-        saveGameLoop()
-        val transaction = fragmentManager!!.beginTransaction()
-        transaction.replace(R.id.fragmentContainer, Map())
-        transaction.addToBackStack("OpenMap")
-        transaction.commit()
-    }
-
     private fun rollDice() {
         gameView.gameLoop.player.rollDice()
         gameView.gameLoop.loopData.playerTurn = true
@@ -102,21 +103,25 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener, OverWorldLi
 
     private fun moveUp() {
         gameView.gameLoop.player.moveUp()
+        gameView.gameLoop.player.directions = gameView.gameLoop.tileManager.getTileDirections(gameView.gameLoop.player.position)
         setUpUI()
     }
 
     private fun moveDown() {
         gameView.gameLoop.player.moveDown()
+        gameView.gameLoop.player.directions = gameView.gameLoop.tileManager.getTileDirections(gameView.gameLoop.player.position)
         setUpUI()
     }
 
     private fun moveLeft() {
         gameView.gameLoop.player.moveLeft()
+        gameView.gameLoop.player.directions = gameView.gameLoop.tileManager.getTileDirections(gameView.gameLoop.player.position)
         setUpUI()
     }
 
     private fun moveRight() {
         gameView.gameLoop.player.moveRight()
+        gameView.gameLoop.player.directions = gameView.gameLoop.tileManager.getTileDirections(gameView.gameLoop.player.position)
         setUpUI()
     }
 
@@ -137,8 +142,7 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener, OverWorldLi
             downArrow.visibility = View.VISIBLE
             leftArrow.visibility = View.VISIBLE
             rightArrow.visibility = View.VISIBLE
-            inventoryButton.visibility = View.VISIBLE
-            mapButton.visibility = View.VISIBLE}, 0)
+            inventoryButton.visibility = View.VISIBLE}, 0)
     }
 
     override fun onEnemyTurn(){
@@ -149,8 +153,7 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener, OverWorldLi
             downArrow.visibility = View.INVISIBLE
             leftArrow.visibility = View.INVISIBLE
             rightArrow.visibility = View.INVISIBLE
-            inventoryButton.visibility = View.INVISIBLE
-            mapButton.visibility = View.INVISIBLE}, 0)
+            inventoryButton.visibility = View.INVISIBLE}, 0)
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) { }
