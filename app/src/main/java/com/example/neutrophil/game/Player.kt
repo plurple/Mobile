@@ -20,6 +20,9 @@ class Player(@Transient private var context : Context){
     var numAbilities = 1
     @Transient lateinit var image: Bitmap
     var directions : List<Boolean> = listOf(true, true, true, true)
+    var kills = mutableListOf(0, 0, 0, 0, 0)
+    var totalSteps = 0
+    var numHealthPotions = 3
 
     init {
         position = Float2(TileGlobals.tileSize * (TileGlobals.numHorizontalTiles/2), TileGlobals.tileSize*(TileGlobals.numVerticalTiles/2))
@@ -31,6 +34,16 @@ class Player(@Transient private var context : Context){
     {
         image = BitmapFactory.decodeResource(context.resources, R.drawable.player)
         abilities = mutableListOf<Ability>(Ability())
+    }
+
+    fun update(){
+        if(numAbilities < 4) {
+            for (i in 0..3) {
+                if (kills[i] >= 5) {
+                    addAbility(i)
+                }
+            }
+        }
     }
 
     fun draw(canvas: Canvas) {
@@ -54,11 +67,21 @@ class Player(@Transient private var context : Context){
         return null
     }
 
+    fun checkForOverlap(items: MutableList<Item>) : Item? {
+        for (item in items){
+            if(position.x == item.position.x && position.y == item.position.y){
+                return item
+            }
+        }
+        return null
+    }
+
     fun moveUp(){
         if(numberSteps > 0) {
             position.y -= TileGlobals.tileSize
             tileOffset.y--
             numberSteps--
+            totalSteps++
         }
     }
 
@@ -67,6 +90,7 @@ class Player(@Transient private var context : Context){
             position.y += TileGlobals.tileSize
             tileOffset.y++
             numberSteps--
+            totalSteps++
         }
     }
 
@@ -75,6 +99,7 @@ class Player(@Transient private var context : Context){
             position.x -= TileGlobals.tileSize
             tileOffset.x--
             numberSteps--
+            totalSteps++
         }
     }
 
@@ -83,6 +108,7 @@ class Player(@Transient private var context : Context){
             position.x += TileGlobals.tileSize
             tileOffset.x++
             numberSteps--
+            totalSteps++
         }
     }
 
@@ -102,6 +128,7 @@ class Player(@Transient private var context : Context){
                 ability.type = EnemyVariety.Parasite
             }
         }
+        if(abilities.contains(ability)) return
         abilities.add(ability)
         numAbilities++
     }
@@ -112,5 +139,12 @@ class Player(@Transient private var context : Context){
             health = 0
         if(health > maxHealth)
             health = maxHealth
+    }
+
+    fun consumeHealth(){
+        if(numHealthPotions > 0){
+            modifyHealth(50)
+            numHealthPotions--
+        }
     }
 }

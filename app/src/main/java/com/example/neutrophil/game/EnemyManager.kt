@@ -15,7 +15,7 @@ class EnemyManager {
         var count = 0
         for (enemy in enemies) {
             enemy.update()
-            enemy.directions = tileManager.getTileDirections(enemy.position)!!
+            enemy.directions = tileManager.getTileDirections(enemy.position)
             if(enemy.numberSteps == 0) count++
         }
         return count == numEnemies

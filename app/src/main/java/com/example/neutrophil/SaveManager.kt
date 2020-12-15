@@ -99,6 +99,29 @@ object SaveManager{
         return tileManager
     }
 
+    fun saveItems(itemManager: ItemManager){
+        with (sharedPref.edit()) {
+            putString(context.getString(R.string.savedItems), Gson().toJson(itemManager))
+            for((count, item) in itemManager.items.withIndex()){
+                putString(context.getString(R.string.savedItem) + count, Gson().toJson(item))
+            }
+            apply()
+        }
+    }
+
+    fun loadItems() : ItemManager{
+        val savedItems = sharedPref.getString(context.getString(R.string.savedItems), "")
+        if(savedItems!!.isEmpty()) return ItemManager()
+        var itemManager = Gson().fromJson(savedItems, ItemManager::class.java)
+        for(i in 0 until itemManager.numItems)
+        {
+            val savedItem = sharedPref.getString(context.getString(R.string.savedItem)+i, "")
+            val item = Gson().fromJson(savedItem, Item::class.java)
+            itemManager.items.add(item)
+        }
+        return itemManager
+    }
+
     fun saveLoopData(loopData: LoopData){
         with (sharedPref.edit()) {
             putString(context.getString(R.string.savedLoop), Gson().toJson(loopData))
@@ -134,6 +157,10 @@ object SaveManager{
             putString(context.getString(R.string.savedEnemies), "")
             for(i in 0..100){
                 putString(context.getString(R.string.savedEnemy)+i, "")
+            }
+            putString(context.getString(R.string.savedItems), "")
+            for(i in 0..100){
+                putString(context.getString(R.string.savedItem)+i, "")
             }
             putString(context.getString(R.string.savedTiles), "")
             for(i in 0..100){

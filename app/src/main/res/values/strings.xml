@@ -43,6 +43,12 @@
     <string name="GameOver">Game Over</string>
     <string name="playerImage">playerImage</string>
     <string name="MusicBy">Music by Dylan Senderling</string>
+    <string name="healthButton">healthButton</string>
+    <string name="savedItems">savedItems</string>
+    <string name="savedItem">savedItem</string>
+    <string name="enemySpritesMadeBy">Art by Vector Tradition</string>
+    <string name="otherEnemySpritesBy">Art by ChiliGames</string>
+    <string name="playerSpritesBy">Art by Cthoman</string>
 
 
 </resources>

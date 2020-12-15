@@ -43,7 +43,7 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener, OverWorldLi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         pauseButton.setOnClickListener{ openPause() }
-        inventoryButton.setOnClickListener{ openInventory() }
+        healthButton.setOnClickListener{ consumeHealth() }
         diceRoll.setOnClickListener{ rollDice() }
         upArrow.setOnClickListener{ moveUp() }
         downArrow.setOnClickListener{ moveDown() }
@@ -68,11 +68,20 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener, OverWorldLi
         else leftArrow.visibility = View.INVISIBLE
         if(gameView.gameLoop.player.numberSteps != 0) diceRoll.visibility = View.INVISIBLE
         else diceRoll.visibility = View.VISIBLE
+        if(gameView.gameLoop.player.numHealthPotions != 0) {
+            healthButton.visibility = View.VISIBLE
+            healthBtnText.visibility = View.VISIBLE
+        }
+        else {
+            healthButton.visibility = View.INVISIBLE
+            healthBtnText.visibility = View.VISIBLE
+        }
     }
 
     private fun saveGameLoop() {
         SaveManager.savePlayer(gameView.gameLoop.player)
         SaveManager.saveEnemies(gameView.gameLoop.allEnemies)
+        SaveManager.saveItems(gameView.gameLoop.allItems)
         SaveManager.saveTiles(gameView.gameLoop.tileManager)
         SaveManager.saveLoopData(gameView.gameLoop.loopData)
     }
@@ -85,19 +94,15 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener, OverWorldLi
         transaction.commit()
     }
 
-    private fun openInventory() {
-        saveGameLoop()
-        val transaction = fragmentManager!!.beginTransaction()
-        transaction.replace(R.id.fragmentContainer, Inventory())
-        transaction.addToBackStack("OpenInventory")
-        transaction.commit()
+    private fun consumeHealth() {
+        gameView.gameLoop.player.consumeHealth()
+        setUpUI()
     }
 
     private fun rollDice() {
         gameView.gameLoop.player.rollDice()
         gameView.gameLoop.loopData.playerTurn = true
         setUpUI()
-        diceRoll.visibility = View.INVISIBLE
         sensorManager.unregisterListener(this)
     }
 
@@ -137,12 +142,7 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener, OverWorldLi
     override fun onPlayerTurn(){
         Handler(Looper.getMainLooper()).postDelayed({
             sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME)
-            diceRoll.visibility = View.VISIBLE
-            upArrow.visibility = View.VISIBLE
-            downArrow.visibility = View.VISIBLE
-            leftArrow.visibility = View.VISIBLE
-            rightArrow.visibility = View.VISIBLE
-            inventoryButton.visibility = View.VISIBLE}, 0)
+            setUpUI()}, 0)
     }
 
     override fun onEnemyTurn(){
@@ -153,7 +153,8 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener, OverWorldLi
             downArrow.visibility = View.INVISIBLE
             leftArrow.visibility = View.INVISIBLE
             rightArrow.visibility = View.INVISIBLE
-            inventoryButton.visibility = View.INVISIBLE}, 0)
+            healthButton.visibility = View.INVISIBLE
+            healthBtnText.visibility = View.INVISIBLE}, 0)
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) { }

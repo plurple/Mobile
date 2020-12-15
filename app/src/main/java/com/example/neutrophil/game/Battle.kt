@@ -96,6 +96,8 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener {
     }
 
     fun battleOver() {
+        player.kills[4]++
+        player.kills[battleEnemy.variety.ordinal]++
         SaveManager.savePlayer(player)
         fragmentManager!!.popBackStack()
     }

@@ -1,8 +1,6 @@
 package com.example.neutrophil.game
 
 class EnemyOWAI {
-    //TODO("get a more intelligent AI")
-
     fun moveEnemy(enemy: Enemy){
         var pickDirection = true
         var directions = mutableListOf(0,1,2,3)

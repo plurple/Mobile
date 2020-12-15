@@ -16,8 +16,6 @@ class Settings () : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
-    //TODO("set up the actual information for the sliders")
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

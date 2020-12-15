@@ -12,6 +12,7 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
     var player = Player(context)
     var tileManager = TileManager()
     var allEnemies = EnemyManager()
+    var allItems = ItemManager()
     var loopData = LoopData()
     private lateinit var overWorldListener : OverWorldListener
 
@@ -20,6 +21,8 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
         tileManager.setup(context)
         allEnemies = SaveManager.loadEnemies()
         allEnemies.setup(context)
+        allItems = SaveManager.loadItems()
+        allItems.setup(context)
         player = SaveManager.loadPlayer()
         player.setUp(context)
         player.directions = tileManager.getTileDirections(player.position)
@@ -34,6 +37,7 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
             if(player.position.x < 0.0f || player.position.x > TileGlobals.tileSize * TileGlobals.numHorizontalTiles ||
                 player.position.y < 0.0f || player.position.y > TileGlobals.tileSize * TileGlobals.numVerticalTiles)
                 recenterPlayer()
+            player.update()
             if (player.numberSteps == 0 && loopData.playerTurn) {
                 onEnemyTurn()
             }
@@ -43,6 +47,13 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
                 allEnemies.numEnemies--
                 onBattleReady(enemy)
             }
+            var item = player.checkForOverlap(allItems.items)
+            if (item != null) {
+                allItems.items.remove(item)
+                allItems.numItems--
+                item.pickUp(player)
+            }
+            allItems.update()
             tileManager.update()
             if (loopData.enemyTurn) {
                 Thread.sleep(250)
@@ -57,6 +68,7 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
         tileManager.draw(canvas)
         player.draw(canvas)
         allEnemies.draw(canvas)
+        allItems.draw(canvas)
     }
 
     fun recenterPlayer(){

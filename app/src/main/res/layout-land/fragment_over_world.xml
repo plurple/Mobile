@@ -145,15 +145,28 @@
         app:layout_constraintStart_toEndOf="@+id/rightArrow"
         tools:text="16" />
 
-    <ImageButton
-        android:id="@+id/inventoryButton"
+    <ImageView
+        android:id="@+id/healthButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="30dp"
-        android:contentDescription="@string/inventory"
-        android:src="@android:drawable/ic_dialog_dialer"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="200dp"
+        android:layout_marginBottom="35dp"
+        android:contentDescription="@string/healthButton"
+        android:src="@drawable/health"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/diceRoll" />
+
+    <TextView
+        android:id="@+id/healthBtnText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="@+id/healthButton"
+        app:layout_constraintEnd_toEndOf="@+id/healthButton"
+        app:layout_constraintStart_toStartOf="@+id/healthButton"
+        app:layout_constraintTop_toTopOf="@+id/healthButton"
+        tools:text="5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
