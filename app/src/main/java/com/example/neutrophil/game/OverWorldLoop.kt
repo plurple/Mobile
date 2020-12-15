@@ -37,7 +37,6 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
             if(player.position.x < 0.0f || player.position.x > TileGlobals.tileSize * TileGlobals.numHorizontalTiles ||
                 player.position.y < 0.0f || player.position.y > TileGlobals.tileSize * TileGlobals.numVerticalTiles)
                 recenterPlayer()
-            player.update()
             if (player.numberSteps == 0 && loopData.playerTurn) {
                 onEnemyTurn()
             }
@@ -52,6 +51,7 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
                 allItems.items.remove(item)
                 allItems.numItems--
                 item.pickUp(player)
+                pickUp()
             }
             allItems.update()
             tileManager.update()
@@ -74,8 +74,10 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
     fun recenterPlayer(){
         var adjustment = Float2(player.tileOffset.x * TileGlobals.tileSize, player.tileOffset.y * TileGlobals.tileSize)
         player.position -= adjustment
+        tileManager.position -= adjustment
         for(tile in tileManager.tiles) tile.position -= adjustment
         for(enemy in allEnemies.enemies) enemy.position -= adjustment
+        for(item in allItems.items) item.position -= adjustment
         player.tileOffset = Int2(0, 0)
     }
 
@@ -94,6 +96,10 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
         loopData.playerTurn = false
         loopData.enemyTurn = true
         overWorldListener.onEnemyTurn()
+    }
+
+    override fun pickUp(){
+        overWorldListener.pickUp()
     }
 }
 

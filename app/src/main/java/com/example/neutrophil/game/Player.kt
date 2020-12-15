@@ -36,15 +36,6 @@ class Player(@Transient private var context : Context){
         abilities = mutableListOf<Ability>(Ability())
     }
 
-    fun update(){
-        if(numAbilities < 4) {
-            for (i in 0..3) {
-                if (kills[i] >= 5) {
-                    addAbility(i)
-                }
-            }
-        }
-    }
 
     fun draw(canvas: Canvas) {
         canvas.drawBitmap(image, position.x, position.y,null )
@@ -117,15 +108,19 @@ class Player(@Transient private var context : Context){
         when(type){
             1 ->{
                 ability.name = "fish"
-                ability.type = EnemyVariety.Virus
+                ability.type = EnemyVariety.Bacteria
             }
             2 ->{
-                ability.name = "swirl"
-                ability.type = EnemyVariety.Fungus
+                ability.name = "lightning"
+                ability.type = EnemyVariety.Virus
             }
             3 ->{
                 ability.name = "triangle"
                 ability.type = EnemyVariety.Parasite
+            }
+            4 ->{
+                ability.name = "swirl"
+                ability.type = EnemyVariety.Fungus
             }
         }
         if(abilities.contains(ability)) return

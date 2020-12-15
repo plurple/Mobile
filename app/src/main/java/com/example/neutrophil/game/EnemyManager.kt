@@ -28,7 +28,7 @@ class EnemyManager {
     fun setup(context: Context){
         if(enemies.size == 0) {
             for (i in 0..9) {
-                var enemy: Enemy = Enemy(context, (0..4).random())
+                var enemy: Enemy = Enemy(context, (0..22).random())
                 enemies.add(enemy)
                 numEnemies++
             }

@@ -57,6 +57,7 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener, OverWorldLi
         healthBar.max = gameView.gameLoop.player.maxHealth
         healthBar.progress = gameView.gameLoop.player.health
         healthValue.text = healthBar.progress.toString() + "/" + healthBar.max.toString()
+        healthBtnText.text = gameView.gameLoop.player.numHealthPotions.toString()
         numMoves.text = gameView.gameLoop.player.numberSteps.toString()
         if(gameView.gameLoop.player.directions[0]) upArrow.visibility = View.VISIBLE
         else upArrow.visibility = View.INVISIBLE
@@ -74,7 +75,7 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener, OverWorldLi
         }
         else {
             healthButton.visibility = View.INVISIBLE
-            healthBtnText.visibility = View.VISIBLE
+            healthBtnText.visibility = View.INVISIBLE
         }
     }
 
@@ -155,6 +156,10 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener, OverWorldLi
             rightArrow.visibility = View.INVISIBLE
             healthButton.visibility = View.INVISIBLE
             healthBtnText.visibility = View.INVISIBLE}, 0)
+    }
+
+    override fun pickUp() {
+        setUpUI()
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) { }

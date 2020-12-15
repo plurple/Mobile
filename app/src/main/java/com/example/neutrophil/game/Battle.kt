@@ -85,19 +85,20 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener {
                             battleEnemy.modifyHealth(ability.damage*2)
                         else
                             battleEnemy.modifyHealth(ability.damage)
-                        playerTurn = false
                     }
                     setEnemyUI()
                 }
             }
         }
+        playerTurn = false
         onEnemyTurn()
         playerTurn = true
     }
 
     fun battleOver() {
-        player.kills[4]++
+        player.kills[EnemyVariety.None.ordinal]++
         player.kills[battleEnemy.variety.ordinal]++
+        if(player.kills[battleEnemy.variety.ordinal] == 5) player.addAbility(battleEnemy.variety.ordinal)
         SaveManager.savePlayer(player)
         fragmentManager!!.popBackStack()
     }
