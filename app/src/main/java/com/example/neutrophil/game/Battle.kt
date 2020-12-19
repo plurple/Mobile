@@ -40,12 +40,12 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         player = SaveManager.loadPlayer()
+        playerImage.setImageBitmap(player.image)
         battleEnemy = SaveManager.loadEnemy()
+        enemyImage.setImageBitmap(battleEnemy.image)
         setUI()
         retreatButton.setOnClickListener { retreat() }
         atkInput.addOnGesturePerformedListener(this)
-        playerImage.setImageBitmap(player.image)
-        enemyImage.setImageBitmap(battleEnemy.image)
     }
 
     private fun retreat() {
