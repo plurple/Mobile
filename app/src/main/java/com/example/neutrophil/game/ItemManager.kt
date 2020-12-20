@@ -17,19 +17,11 @@ class ItemManager {
     }
 
     fun setup(context: Context){
-        if(items.size == 0) {
-            for (i in 0..4) {
-                var item = Item(context)
-                items.add(item)
-                numItems++
-            }
-        }
-        else{
-            for(item in items)
-            {
-                item.setItem(context)
-            }
+        for(item in items)
+        {
+            item.setItem(context)
         }
     }
+
 
 }

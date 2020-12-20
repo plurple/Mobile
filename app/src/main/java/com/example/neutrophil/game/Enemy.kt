@@ -50,11 +50,13 @@ class Enemy(@Transient var context: Context, var enemyType : Int) {
     }
 
     fun update(){
-        if(numberSteps == 0) return
-            moveEnemy()
         onScreen = (position.x >=0.0f && position.x <= TileGlobals.tileSize * TileGlobals.numHorizontalTiles &&
                 position.y >= 0.0f && position.y <= TileGlobals.tileSize * TileGlobals.numVerticalTiles)
+    }
 
+    fun updateMove(){
+        if(numberSteps == 0) return
+        moveEnemy()
     }
 
     fun battleUpdate(player: Player){
@@ -66,117 +68,117 @@ class Enemy(@Transient var context: Context, var enemyType : Int) {
             -1 ->{
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.arrow_up)
             }
-            15 -> {
+            0 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.red_bean)
                 variety = EnemyVariety.Bacteria
                 name = "Bacteria"
             }
-            7 -> {
+            4 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.orange_blob)
                 variety = EnemyVariety.Bacteria
                 name = "Bacteria"
             }
-            1 -> {
+            8 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.blue_flat)
                 variety = EnemyVariety.Bacteria
                 name = "Bacteria"
             }
-            3 -> {
+            12 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.blue_wide_blob)
                 variety = EnemyVariety.Bacteria
                 name = "Bacteria"
             }
-            20 -> {
-                image = BitmapFactory.decodeResource(context.resources, R.drawable.yellow_blob)
-                variety = EnemyVariety.Bacteria
-                name = "Bacteria"
-            }
-            11 -> {
+            16 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.pink_twins)
                 variety = EnemyVariety.Bacteria
                 name = "Bacteria"
             }
-            5 -> {
+            20 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.green_split)
                 variety = EnemyVariety.Bacteria
                 name = "Bacteria"
             }
-            4 -> {
+            2 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.green_blob)
                 variety = EnemyVariety.Virus
                 name = "Virus"
             }
-            21 -> {
+            6 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.yellow_eye)
                 variety = EnemyVariety.Virus
                 name = "Virus"
             }
-            2 -> {
+            10 -> {
+                image = BitmapFactory.decodeResource(context.resources, R.drawable.yellow_blob)
+                variety = EnemyVariety.Bacteria
+                name = "virus"
+            }
+            14 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.blue_green_merged)
                 variety = EnemyVariety.Virus
                 name = "Virus"
             }
-            13 -> {
+            18 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.purple_blob)
                 variety = EnemyVariety.Virus
                 name = "Virus"
             }
-            10 -> {
+            22 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.pink_crystal)
                 variety = EnemyVariety.Virus
                 name = "Virus"
             }
-            12 -> {
+            3 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.pink_worm)
                 variety = EnemyVariety.Parasite
                 name = "Parasite"
             }
-            6 -> {
+            7 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.green_tadpol)
                 variety = EnemyVariety.Parasite
                 name = "Parasite"
             }
-            8 -> {
+            11 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.orange_jellyfish)
                 variety = EnemyVariety.Parasite
                 name = "Parasite"
             }
-            16 -> {
+            15 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.red_tadpol)
                 variety = EnemyVariety.Parasite
                 name = "Parasite"
             }
-            18 -> {
+            19 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.red_worm)
                 variety = EnemyVariety.Parasite
                 name = "Parasite"
             }
-            0 -> {
+            1 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.blue_cucumber)
                 variety = EnemyVariety.Fungus
                 name = "Fungus"
             }
-            19 -> {
+            5 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.triplets)
                 variety = EnemyVariety.Fungus
                 name = "Fungus"
             }
-            14 -> {
+            9 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.purple_handy)
                 variety = EnemyVariety.Fungus
                 name = "Fungus"
             }
-            17 -> {
+            13 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.red_tall_blob)
                 variety = EnemyVariety.Fungus
                 name = "Fungus"
             }
-            9 -> {
+            17 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.pink_blob)
                 variety = EnemyVariety.Fungus
                 name = "Fungus"
             }
-            22 -> {
+            21 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.yellow_triplets)
                 variety = EnemyVariety.Fungus
                 name = "Fungus"

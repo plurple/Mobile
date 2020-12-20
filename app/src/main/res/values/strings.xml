@@ -49,6 +49,7 @@
     <string name="enemySpritesMadeBy">Art by Vector Tradition</string>
     <string name="otherEnemySpritesBy">Art by ChiliGames</string>
     <string name="playerSpritesBy">Art by Cthoman</string>
+    <string name="savedLevelManager">savedLevelManager</string>
 
 
 </resources>

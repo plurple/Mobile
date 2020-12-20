@@ -14,31 +14,56 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
     var allEnemies = EnemyManager()
     var allItems = ItemManager()
     var loopData = LoopData()
+    var levelManager = LevelManager()
     private lateinit var overWorldListener : OverWorldListener
 
     fun overWorldLateInit(owListener: OverWorldListener) {
-        tileManager = SaveManager.loadTiles()
+        levelManager = SaveManager.loadLevelManager()
+        if(levelManager.newGame) loadLevel()
+        else {
+            tileManager = SaveManager.loadTiles()
+            allEnemies = SaveManager.loadEnemies()
+            allItems = SaveManager.loadItems()
+            player = SaveManager.loadPlayer()
+            loopData = SaveManager.loadLoopData()
+
+            player.directions = tileManager.getTileDirections(player.position)
+            for(enemy in allEnemies.enemies) enemy.directions = tileManager.getTileDirections(enemy.position)
+        }
         tileManager.setup(context)
-        allEnemies = SaveManager.loadEnemies()
         allEnemies.setup(context)
-        allItems = SaveManager.loadItems()
         allItems.setup(context)
-        player = SaveManager.loadPlayer()
         player.setUp(context)
-        player.directions = tileManager.getTileDirections(player.position)
-        for(enemy in allEnemies.enemies) enemy.directions = tileManager.getTileDirections(enemy.position)
-        loopData = SaveManager.loadLoopData()
+
         loopData.battle = false
+        levelManager.newGame = false
+
         overWorldListener = owListener
     }
 
     fun update() {
         if(!loopData.battle) {
-            if(player.position.x < 0.0f || player.position.x > TileGlobals.tileSize * TileGlobals.numHorizontalTiles ||
-                player.position.y < 0.0f || player.position.y > TileGlobals.tileSize * TileGlobals.numVerticalTiles)
+            if(player.position.x < 0.0f || player.position.x >= TileGlobals.tileSize * TileGlobals.numHorizontalTiles ||
+                player.position.y < 0.0f || player.position.y >= TileGlobals.tileSize * TileGlobals.numVerticalTiles)
                 recenterPlayer()
             if (player.numberSteps == 0 && loopData.playerTurn) {
                 onEnemyTurn()
+            }
+            allItems.update()
+            tileManager.update()
+            allEnemies.update()
+            if (loopData.enemyTurn) {
+                Thread.sleep(250)
+                if (allEnemies.updateMove(tileManager)) {
+                    onPlayerTurn()
+                }
+            }
+            var item = player.checkForOverlap(allItems.items)
+            if (item != null) {
+                allItems.items.remove(item)
+                allItems.numItems--
+                item.pickUp(player)
+                onSetUpUI()
             }
             var enemy = player.checkForOverlap(allEnemies.enemies)
             if (enemy != null) {
@@ -46,20 +71,12 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
                 allEnemies.numEnemies--
                 onBattleReady(enemy)
             }
-            var item = player.checkForOverlap(allItems.items)
-            if (item != null) {
-                allItems.items.remove(item)
-                allItems.numItems--
-                item.pickUp(player)
-                pickUp()
-            }
-            allItems.update()
-            tileManager.update()
-            if (loopData.enemyTurn) {
-                Thread.sleep(250)
-                if (allEnemies.update(tileManager)) {
-                    onPlayerTurn()
-                }
+
+            if (player.position.x == levelManager.nextLevelPos.x &&
+                player.position.y == levelManager.nextLevelPos.y) {
+                clearLevel()
+                loadLevel()
+                onSetUpUI()
             }
         }
     }
@@ -69,12 +86,14 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
         player.draw(canvas)
         allEnemies.draw(canvas)
         allItems.draw(canvas)
+        levelManager.draw(context, canvas)
     }
 
     fun recenterPlayer(){
         var adjustment = Float2(player.tileOffset.x * TileGlobals.tileSize, player.tileOffset.y * TileGlobals.tileSize)
         player.position -= adjustment
         tileManager.position -= adjustment
+        levelManager.nextLevelPos -= adjustment
         for(tile in tileManager.tiles) tile.position -= adjustment
         for(enemy in allEnemies.enemies) enemy.position -= adjustment
         for(item in allItems.items) item.position -= adjustment
@@ -98,8 +117,51 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
         overWorldListener.onEnemyTurn()
     }
 
-    override fun pickUp(){
-        overWorldListener.pickUp()
+    override fun onSetUpUI(){
+        overWorldListener.onSetUpUI()
+    }
+
+    fun clearLevel(){
+        allItems.items.clear()
+        allItems.numItems = 0
+        allEnemies.enemies.clear()
+        allEnemies.numEnemies = 0
+        tileManager.tiles.clear()
+        tileManager.numTiles = 0
+    }
+
+    fun loadLevel(){
+        levelManager.currentLevel = levelManager.nextLevel
+        var level = Levels.levels[levelManager.currentLevel]
+        for(i in 0 until level.numCellsY){
+            for(j in 0 until level.numCellsX){
+                if(level.listOfTiles[i*10+j] == -1) continue
+                var tile = Tile(context, level.listOfTiles[i*10+j])
+                tile.position = Float2(j*TileGlobals.tileSize, i*TileGlobals.tileSize)
+                tileManager.tiles.add(tile)
+                tileManager.numTiles++
+            }
+        }
+        player.position = Float2(level.playerPos.x*TileGlobals.tileSize,level.playerPos.y*TileGlobals.tileSize)
+        player.directions = tileManager.getTileDirections(player.position)
+        player.tileOffset = Int2(level.playerPos.x - (TileGlobals.numHorizontalTiles/2), level.playerPos.y - (TileGlobals.numVerticalTiles/2))
+        for(potion in level.listOfHealthPotions) {
+            var item = Item(context)
+            item.position = Float2(potion.x*TileGlobals.tileSize,potion.y*TileGlobals.tileSize)
+            allItems.items.add(item)
+            allItems.numItems++
+        }
+        for(levelEnemy in level.listOfEnemies){
+            var enemy = Enemy(context, levelEnemy.type)
+            enemy.position = Float2(levelEnemy.position.x*TileGlobals.tileSize, levelEnemy.position.y*TileGlobals.tileSize)
+            enemy.directions = tileManager.getTileDirections(enemy.position)
+            allEnemies.enemies.add(enemy)
+            allEnemies.numEnemies++
+        }
+
+        levelManager.nextLevel = level.nextLevel
+        levelManager.nextLevelPos = Float2(level.nextLevelPos.x*TileGlobals.tileSize, level.nextLevelPos.y*TileGlobals.tileSize)
+        recenterPlayer()
     }
 }
 

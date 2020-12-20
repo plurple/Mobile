@@ -9,6 +9,7 @@ class Level {
     var listOfEnemies = mutableListOf<LevelEnemy>()
     var playerPos = Int2(0, 0)
     var nextLevelPos = Int2(0, 0)
+    var nextLevel = 0
     var listOfHealthPotions = mutableListOf<Int2>()
 }
 

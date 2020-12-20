@@ -150,10 +150,24 @@ object SaveManager{
         SoundManager.soundsLevel = sharedPref.getFloat(context.getString(R.string.savedSounds), 0.5f)
     }
 
+    fun saveLevelManager(levelManager: LevelManager){
+        with (sharedPref.edit()) {
+            putString(context.getString(R.string.savedLevelManager), Gson().toJson(levelManager))
+            apply()
+        }
+    }
+
+    fun loadLevelManager(): LevelManager{
+        val savedLevelManager = sharedPref.getString(context.getString(R.string.savedLevelManager), "")
+        if(savedLevelManager!!.isEmpty()) return LevelManager()
+        return Gson().fromJson(savedLevelManager, LevelManager::class.java)
+    }
+
     fun clearData() {
         with(sharedPref.edit()) {
             putString(context.getString(R.string.savedPlayer), "")
             putString(context.getString(R.string.savedLoop), "")
+            putString(context.getString(R.string.savedLevelManager), "")
             putString(context.getString(R.string.savedEnemies), "")
             for(i in 0..100){
                 putString(context.getString(R.string.savedEnemy)+i, "")

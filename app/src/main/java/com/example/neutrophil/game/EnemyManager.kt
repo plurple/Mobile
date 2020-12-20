@@ -11,14 +11,20 @@ class EnemyManager {
         for (enemy in enemies) enemy.draw(canvas)
     }
 
-    fun update(tileManager: TileManager) : Boolean{
+    fun updateMove(tileManager: TileManager) : Boolean{
         var count = 0
         for (enemy in enemies) {
-            enemy.update()
+            enemy.updateMove()
             enemy.directions = tileManager.getTileDirections(enemy.position)
             if(enemy.numberSteps == 0) count++
         }
         return count == numEnemies
+    }
+
+    fun update(){
+        for (enemy in enemies) {
+            enemy.update()
+        }
     }
 
     fun rollDice(){
@@ -26,17 +32,9 @@ class EnemyManager {
     }
 
     fun setup(context: Context){
-        if(enemies.size == 0) {
-            for (i in 0..9) {
-                var enemy: Enemy = Enemy(context, (0..22).random())
-                enemies.add(enemy)
-                numEnemies++
-            }
-        }
-        else{
-            for (enemy in enemies){
-                enemy.setEnemy(context)
-            }
+        for (enemy in enemies){
+            enemy.setEnemy(context)
         }
     }
+
 }

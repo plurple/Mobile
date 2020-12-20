@@ -16,8 +16,8 @@ class Player(@Transient private var context : Context){
     var diceSides = 6
     var numDice = 1
     var position = Float2(0.0f, 0.0f)
-    @Transient var abilities = mutableListOf<Ability>(Ability())
-    var numAbilities = 1
+    @Transient lateinit var abilities : MutableList<Ability>
+    var numAbilities = 0
     @Transient lateinit var image: Bitmap
     var directions : List<Boolean> = listOf(true, true, true, true)
     var kills = mutableListOf(0, 0, 0, 0, 0)
@@ -33,7 +33,8 @@ class Player(@Transient private var context : Context){
     fun setUp(context: Context)
     {
         image = BitmapFactory.decodeResource(context.resources, R.drawable.player)
-        abilities = mutableListOf<Ability>(Ability())
+        abilities = mutableListOf<Ability>()
+        if(numAbilities == 0) addAbility(0)
     }
 
 
@@ -123,7 +124,9 @@ class Player(@Transient private var context : Context){
                 ability.type = EnemyVariety.Fungus
             }
         }
-        if(abilities.contains(ability)) return
+        for(abil in abilities){
+            if(abil.name == ability.name) return
+        }
         abilities.add(ability)
         numAbilities++
     }

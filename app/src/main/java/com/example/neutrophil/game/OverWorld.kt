@@ -85,6 +85,7 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener, OverWorldLi
         SaveManager.saveItems(gameView.gameLoop.allItems)
         SaveManager.saveTiles(gameView.gameLoop.tileManager)
         SaveManager.saveLoopData(gameView.gameLoop.loopData)
+        SaveManager.saveLevelManager(gameView.gameLoop.levelManager)
     }
 
     private fun openPause() {
@@ -158,8 +159,9 @@ class OverWorld(context: Context) : Fragment(), SensorEventListener, OverWorldLi
             healthBtnText.visibility = View.INVISIBLE}, 0)
     }
 
-    override fun pickUp() {
-        setUpUI()
+    override fun onSetUpUI() {
+        Handler(Looper.getMainLooper()).postDelayed({
+        setUpUI()}, 0)
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) { }

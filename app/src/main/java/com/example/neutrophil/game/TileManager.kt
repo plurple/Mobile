@@ -18,26 +18,12 @@ class TileManager {
     }
 
     fun setup(context: Context){
-        if(tiles.size == 0) {
-            for (i in 0 until TileGlobals.numHorizontalTiles + 1) {
-                for (j in 0 until TileGlobals.numVerticalTiles + 1) {
-                    var tile: Tile = Tile(context, (0..10).random())
-                    tile.position = Float2(
-                        position.x + TileGlobals.tileSize * i.toFloat(),
-                        position.y + TileGlobals.tileSize * j.toFloat()
-                    )
-                    tiles.add(tile)
-                    numTiles++
-                }
-            }
-        }
-        else{
-            for(tile in tiles)
-            {
-                tile.setTile(context)
-            }
+        for(tile in tiles)
+        {
+            tile.setTile(context)
         }
     }
+
 
     fun getTileDirections(position : Float2) : List<Boolean>{
         for(tile in tiles){

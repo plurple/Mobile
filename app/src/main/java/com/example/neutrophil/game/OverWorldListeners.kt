@@ -10,5 +10,5 @@ interface OverWorldListener {
     fun onBattleReady(enemy: Enemy)
     fun onPlayerTurn()
     fun onEnemyTurn()
-    fun pickUp()
+    fun onSetUpUI()
 }
