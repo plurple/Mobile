@@ -59,13 +59,13 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener {
         setEnemyUI()
     }
 
-    fun setPlayerUI(){
+    private fun setPlayerUI(){
         playerHealth.max = player.maxHealth
         playerHealth.progress = player.health
         playerHealthValues.text = playerHealth.progress.toString() + "/" + playerHealth.max.toString()
     }
 
-    fun setEnemyUI(){
+    private fun setEnemyUI(){
         enemyName.text = battleEnemy.name
         enemyHealth.max = battleEnemy.maxHealth
         enemyHealth.progress = battleEnemy.health
@@ -95,21 +95,22 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener {
         playerTurn = true
     }
 
-    fun battleOver() {
+    private fun battleOver() {
         player.kills[EnemyVariety.None.ordinal]++
         player.kills[battleEnemy.variety.ordinal]++
         if(player.kills[battleEnemy.variety.ordinal] == 5) player.addAbility(battleEnemy.variety.ordinal)
         SaveManager.savePlayer(player)
         fragmentManager!!.popBackStack()
     }
-    fun onDeath(){
+
+    private fun onDeath(){
         SaveManager.savePlayer(player)
         val transaction = fragmentManager!!.beginTransaction()
         transaction.replace(R.id.fragmentContainer, Death())
         transaction.commit()
     }
 
-    fun onEnemyTurn() {
+    private fun onEnemyTurn() {
         if(!playerTurn) {
             if (battleEnemy.health != 0) {
                 battleEnemy.battleUpdate(player)

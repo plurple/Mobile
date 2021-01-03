@@ -25,24 +25,11 @@
         android:layout_width="88dp"
         android:layout_height="48dp"
         android:layout_marginStart="6dp"
-        android:layout_marginEnd="5dp"
         android:layout_marginBottom="20dp"
         android:text="@string/attacks"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/items"
-        app:layout_constraintStart_toEndOf="@+id/retreatButton" />
-
-    <Button
-        android:id="@+id/items"
-        android:layout_width="88dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="20dp"
-        android:text="@string/items"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/information"
-        app:layout_constraintStart_toEndOf="@+id/atkInfo" />
+        app:layout_constraintStart_toEndOf="@+id/retreatButton" />
 
     <TextView
         android:id="@+id/enemyName"
@@ -174,13 +161,12 @@
         android:id="@+id/information"
         android:layout_width="450dp"
         android:layout_height="50dp"
-        android:layout_marginStart="5dp"
         android:layout_marginTop="18dp"
         android:layout_marginEnd="13dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/items"
+        app:layout_constraintStart_toEndOf="@+id/atkInfo"
         app:layout_constraintTop_toBottomOf="@+id/atkInput"
         tools:text="Example text to give the player information and instructions" />
 

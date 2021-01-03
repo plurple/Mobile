@@ -58,14 +58,14 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
                     onPlayerTurn()
                 }
             }
-            var item = player.checkForOverlap(allItems.items)
+            val item = player.checkForOverlap(allItems.items)
             if (item != null) {
                 allItems.items.remove(item)
                 allItems.numItems--
                 item.pickUp(player)
                 onSetUpUI()
             }
-            var enemy = player.checkForOverlap(allEnemies.enemies)
+            val enemy = player.checkForOverlap(allEnemies.enemies)
             if (enemy != null) {
                 allEnemies.enemies.remove(enemy)
                 allEnemies.numEnemies--
@@ -89,8 +89,8 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
         levelManager.draw(context, canvas)
     }
 
-    fun recenterPlayer(){
-        var adjustment = Float2(player.tileOffset.x * TileGlobals.tileSize, player.tileOffset.y * TileGlobals.tileSize)
+    private fun recenterPlayer(){
+        val adjustment = Float2(player.tileOffset.x * TileGlobals.tileSize, player.tileOffset.y * TileGlobals.tileSize)
         player.position -= adjustment
         tileManager.position -= adjustment
         levelManager.nextLevelPos -= adjustment
@@ -121,7 +121,7 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
         overWorldListener.onSetUpUI()
     }
 
-    fun clearLevel(){
+    private fun clearLevel(){
         allItems.items.clear()
         allItems.numItems = 0
         allEnemies.enemies.clear()
@@ -130,13 +130,13 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
         tileManager.numTiles = 0
     }
 
-    fun loadLevel(){
+    private fun loadLevel(){
         levelManager.currentLevel = levelManager.nextLevel
-        var level = Levels.levels[levelManager.currentLevel]
+        val level = Levels.levels[levelManager.currentLevel]
         for(i in 0 until level.numCellsY){
             for(j in 0 until level.numCellsX){
                 if(level.listOfTiles[i*10+j] == -1) continue
-                var tile = Tile(context, level.listOfTiles[i*10+j])
+                val tile = Tile(context, level.listOfTiles[i*10+j])
                 tile.position = Float2(j*TileGlobals.tileSize, i*TileGlobals.tileSize)
                 tileManager.tiles.add(tile)
                 tileManager.numTiles++
@@ -146,13 +146,13 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
         player.directions = tileManager.getTileDirections(player.position)
         player.tileOffset = Int2(level.playerPos.x - (TileGlobals.numHorizontalTiles/2), level.playerPos.y - (TileGlobals.numVerticalTiles/2))
         for(potion in level.listOfHealthPotions) {
-            var item = Item(context)
+            val item = Item(context)
             item.position = Float2(potion.x*TileGlobals.tileSize,potion.y*TileGlobals.tileSize)
             allItems.items.add(item)
             allItems.numItems++
         }
         for(levelEnemy in level.listOfEnemies){
-            var enemy = Enemy(context, levelEnemy.type)
+            val enemy = Enemy(context, levelEnemy.type)
             enemy.position = Float2(levelEnemy.position.x*TileGlobals.tileSize, levelEnemy.position.y*TileGlobals.tileSize)
             enemy.directions = tileManager.getTileDirections(enemy.position)
             allEnemies.enemies.add(enemy)

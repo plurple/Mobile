@@ -194,9 +194,9 @@ class Enemy(@Transient var context: Context, var enemyType : Int) {
             health = maxHealth
     }
 
-    fun moveEnemy(){
+    private fun moveEnemy(){
         var pickDirection = true
-        var possibleDirections = mutableListOf(0,1,2,3)
+        val possibleDirections = mutableListOf(0,1,2,3)
         var direction = (possibleDirections).random()
 
         while(pickDirection) {

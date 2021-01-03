@@ -27,7 +27,7 @@ object SaveManager{
     fun loadPlayer() : Player {
         val savedPlayer = sharedPref.getString(context.getString(R.string.savedPlayer), "")
         if(savedPlayer!!.isEmpty()) return Player(context)
-        var player =  Gson().fromJson(savedPlayer, Player::class.java)
+        val player =  Gson().fromJson(savedPlayer, Player::class.java)
         player.setUp(context)
         for(i in 0 until player.numAbilities)
         {
@@ -66,7 +66,7 @@ object SaveManager{
     fun loadEnemies() : EnemyManager {
         val savedEnemies = sharedPref.getString(context.getString(R.string.savedEnemies), "")
         if(savedEnemies!!.isEmpty()) return EnemyManager()
-        var enemyManager = Gson().fromJson(savedEnemies, EnemyManager::class.java)
+        val enemyManager = Gson().fromJson(savedEnemies, EnemyManager::class.java)
         for(i in 0 until enemyManager.numEnemies)
         {
             val savedEnemy = sharedPref.getString(context.getString(R.string.savedEnemy)+i, "")
@@ -89,7 +89,7 @@ object SaveManager{
     fun loadTiles() : TileManager{
         val savedTiles = sharedPref.getString(context.getString(R.string.savedTiles), "")
         if(savedTiles!!.isEmpty()) return TileManager()
-        var tileManager = Gson().fromJson(savedTiles, TileManager::class.java)
+        val tileManager = Gson().fromJson(savedTiles, TileManager::class.java)
         for(i in 0 until tileManager.numTiles)
         {
             val savedTile = sharedPref.getString(context.getString(R.string.savedTile)+i, "")
@@ -112,7 +112,7 @@ object SaveManager{
     fun loadItems() : ItemManager{
         val savedItems = sharedPref.getString(context.getString(R.string.savedItems), "")
         if(savedItems!!.isEmpty()) return ItemManager()
-        var itemManager = Gson().fromJson(savedItems, ItemManager::class.java)
+        val itemManager = Gson().fromJson(savedItems, ItemManager::class.java)
         for(i in 0 until itemManager.numItems)
         {
             val savedItem = sharedPref.getString(context.getString(R.string.savedItem)+i, "")

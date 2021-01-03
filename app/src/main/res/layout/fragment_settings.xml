@@ -55,8 +55,8 @@
 
     <TextView
         android:id="@+id/musicNumber"
-        android:layout_width="16dp"
-        android:layout_height="19dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="34dp"
         android:layout_marginEnd="250dp"
         android:layout_marginBottom="234dp"
@@ -64,7 +64,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/musicSlider"
         app:layout_constraintTop_toBottomOf="@+id/soundNumber"
-        tools:text="50" />
+        tools:text="100" />
 
     <TextView
         android:id="@+id/Sounds"
@@ -90,7 +90,7 @@
 
     <TextView
         android:id="@+id/soundNumber"
-        android:layout_width="16dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="250dp"
@@ -99,7 +99,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/soundsSlider"
         app:layout_constraintTop_toBottomOf="@+id/title"
-        tools:text="50" />
+        tools:text="100" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
