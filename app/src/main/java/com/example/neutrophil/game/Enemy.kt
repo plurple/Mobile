@@ -77,26 +77,40 @@ class Enemy(@Transient var context: Context, var enemyType : Int) {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.orange_blob)
                 variety = EnemyVariety.Bacteria
                 name = "Bacteria"
+                maxHealth = 150
+                health = maxHealth
             }
             8 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.blue_flat)
                 variety = EnemyVariety.Bacteria
                 name = "Bacteria"
+                maxHealth = 200
+                health = maxHealth
+                damage = -10
             }
             12 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.blue_wide_blob)
                 variety = EnemyVariety.Bacteria
                 name = "Bacteria"
+                maxHealth = 250
+                health = maxHealth
+                damage = -10
             }
             16 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.pink_twins)
                 variety = EnemyVariety.Bacteria
                 name = "Bacteria"
+                maxHealth = 300
+                health = maxHealth
+                damage = -10
             }
             20 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.green_split)
                 variety = EnemyVariety.Bacteria
                 name = "Bacteria"
+                maxHealth = 350
+                health = maxHealth
+                damage = -15
             }
             2 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.green_blob)
@@ -107,26 +121,40 @@ class Enemy(@Transient var context: Context, var enemyType : Int) {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.yellow_eye)
                 variety = EnemyVariety.Virus
                 name = "Virus"
+                maxHealth = 150
+                health = maxHealth
             }
             10 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.yellow_blob)
                 variety = EnemyVariety.Bacteria
                 name = "virus"
+                maxHealth = 200
+                health = maxHealth
+                damage = -10
             }
             14 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.blue_green_merged)
                 variety = EnemyVariety.Virus
                 name = "Virus"
+                maxHealth = 250
+                health = maxHealth
+                damage = -10
             }
             18 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.purple_blob)
                 variety = EnemyVariety.Virus
                 name = "Virus"
+                maxHealth = 300
+                health = maxHealth
+                damage = -10
             }
             22 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.pink_crystal)
                 variety = EnemyVariety.Virus
                 name = "Virus"
+                maxHealth = 350
+                health = maxHealth
+                damage = -15
             }
             3 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.pink_worm)
@@ -137,21 +165,32 @@ class Enemy(@Transient var context: Context, var enemyType : Int) {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.green_tadpol)
                 variety = EnemyVariety.Parasite
                 name = "Parasite"
+                maxHealth = 150
+                health = maxHealth
             }
             11 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.orange_jellyfish)
                 variety = EnemyVariety.Parasite
                 name = "Parasite"
+                maxHealth = 200
+                health = maxHealth
+                damage = -10
             }
             15 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.red_tadpol)
                 variety = EnemyVariety.Parasite
                 name = "Parasite"
+                maxHealth = 250
+                health = maxHealth
+                damage = -10
             }
             19 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.red_worm)
                 variety = EnemyVariety.Parasite
                 name = "Parasite"
+                maxHealth = 300
+                health = maxHealth
+                damage = -15
             }
             1 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.blue_cucumber)
@@ -162,26 +201,40 @@ class Enemy(@Transient var context: Context, var enemyType : Int) {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.triplets)
                 variety = EnemyVariety.Fungus
                 name = "Fungus"
+                maxHealth = 150
+                health = maxHealth
             }
             9 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.purple_handy)
                 variety = EnemyVariety.Fungus
                 name = "Fungus"
+                maxHealth = 200
+                health = maxHealth
+                damage = -10
             }
             13 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.red_tall_blob)
                 variety = EnemyVariety.Fungus
                 name = "Fungus"
+                maxHealth = 250
+                health = maxHealth
+                damage = -10
             }
             17 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.pink_blob)
                 variety = EnemyVariety.Fungus
                 name = "Fungus"
+                maxHealth = 300
+                health = maxHealth
+                damage = -10
             }
             21 -> {
                 image = BitmapFactory.decodeResource(context.resources, R.drawable.yellow_triplets)
                 variety = EnemyVariety.Fungus
                 name = "Fungus"
+                maxHealth = 350
+                health = maxHealth
+                damage = -15
             }
         }
     }

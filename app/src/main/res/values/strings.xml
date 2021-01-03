@@ -50,6 +50,9 @@
     <string name="otherEnemySpritesBy">Art by ChiliGames</string>
     <string name="playerSpritesBy">Art by Cthoman</string>
     <string name="savedLevelManager">savedLevelManager</string>
-
-
+    <string name="Attack">To do damage to the enemy you can draw a circle in the box above.</string>
+    <string name="AttackParasite">To do extra damage to the enemy draw a upside Down Triangle in the box above.</string>
+    <string name="AttackVirus">To do extra damage to the enemy draw a lightning bolt in the box above.</string>
+    <string name="AttackBacteria">To do extra damage to the enemy draw a fish in the box above.</string>
+    <string name="AttackFungus">To do extra damage to the enemy draw a swirl in the box above.</string>
 </resources>

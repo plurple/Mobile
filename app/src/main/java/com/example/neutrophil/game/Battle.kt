@@ -57,6 +57,31 @@ class Battle() : Fragment(), GestureOverlayView.OnGesturePerformedListener {
     {
         setPlayerUI()
         setEnemyUI()
+        information.text = context?.getString(R.string.Attack)
+        if(battleEnemy.variety == EnemyVariety.Bacteria){
+            for(ability in player.abilities) {
+                if (ability.type == EnemyVariety.Bacteria)
+                    information.text = context?.getString(R.string.Attack) + context?.getString(R.string.AttackBacteria)
+            }
+        }
+        else if(battleEnemy.variety == EnemyVariety.Virus){
+            for(ability in player.abilities) {
+                if (ability.type == EnemyVariety.Virus)
+                    information.text = context?.getString(R.string.Attack) + context?.getString(R.string.AttackVirus)
+            }
+        }
+        else if(battleEnemy.variety == EnemyVariety.Fungus){
+            for(ability in player.abilities) {
+                if (ability.type == EnemyVariety.Fungus)
+                    information.text = context?.getString(R.string.Attack) + context?.getString(R.string.AttackFungus)
+            }
+        }
+        else if(battleEnemy.variety == EnemyVariety.Parasite){
+            for(ability in player.abilities) {
+                if (ability.type == EnemyVariety.Parasite)
+                    information.text = context?.getString(R.string.Attack) + context?.getString(R.string.AttackParasite)
+            }
+        }
     }
 
     private fun setPlayerUI(){

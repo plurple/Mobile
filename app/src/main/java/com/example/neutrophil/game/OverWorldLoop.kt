@@ -135,8 +135,8 @@ class OverWorldLoop(var context: Context) : OverWorldListener {
         val level = Levels.levels[levelManager.currentLevel]
         for(i in 0 until level.numCellsY){
             for(j in 0 until level.numCellsX){
-                if(level.listOfTiles[i*10+j] == -1) continue
-                val tile = Tile(context, level.listOfTiles[i*10+j])
+                if(level.listOfTiles[i*level.numCellsX+j] == -1) continue
+                val tile = Tile(context, level.listOfTiles[i*level.numCellsX+j])
                 tile.position = Float2(j*TileGlobals.tileSize, i*TileGlobals.tileSize)
                 tileManager.tiles.add(tile)
                 tileManager.numTiles++
