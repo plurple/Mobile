@@ -72,7 +72,7 @@ class Player(@Transient private var context : Context){
         if(numberSteps > 0) {
             position.y -= TileGlobals.tileSize
             tileOffset.y--
-            //numberSteps--
+            numberSteps--
             totalSteps++
         }
     }
@@ -81,7 +81,7 @@ class Player(@Transient private var context : Context){
         if(numberSteps > 0) {
             position.y += TileGlobals.tileSize
             tileOffset.y++
-            //numberSteps--
+            numberSteps--
             totalSteps++
         }
     }
@@ -90,7 +90,7 @@ class Player(@Transient private var context : Context){
         if(numberSteps > 0) {
             position.x -= TileGlobals.tileSize
             tileOffset.x--
-            //numberSteps--
+            numberSteps--
             totalSteps++
         }
     }
@@ -99,7 +99,7 @@ class Player(@Transient private var context : Context){
         if(numberSteps > 0) {
             position.x += TileGlobals.tileSize
             tileOffset.x++
-            //numberSteps--
+            numberSteps--
             totalSteps++
         }
     }
